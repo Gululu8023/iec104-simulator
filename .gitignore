@@ -1,0 +1,15 @@
+.DS_Store
+Thumbs.db
+
+.vscode/
+
+dist/
+build/
+node_modules/
+target/
+
+*.exe
+*.msi
+*.zip
+*.7z
+*.rar
