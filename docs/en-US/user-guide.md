@@ -1,190 +1,150 @@
-# User Guide
+# IEC104 Simulator User Guide
 
-[Back to Home](./README.md) | [简体中文](../zh-CN/user-guide.md)
+This guide covers the actual Master and Slave operating model. See [Protocol Support](./protocol-support.md) for protocol boundaries and [Point Table Format](./point-table-format.md) for import fields.
 
-This document introduces the main UI and basic usage workflow of IEC104 Simulator.
+The workflow screenshots below use the Simplified Chinese locale; the English interface has the same controls and layout.
 
-## 1. Master Simulator
+## Object model
 
-IEC104 Master Simulator is used to simulate an IEC104 master station. It can actively connect to slave devices and send general interrogation, control, setpoint, and clock synchronization commands.
+- A Master **Link** represents one TCP connection and owns the remote endpoint, K/W/T0–T3, reconnect policy, and automatic actions. Its **logical Slaves** own common addresses and point tables.
+- A Slave **Listener** owns the local TCP endpoint. Its **logical Slaves** own common addresses, point tables, control modes, SQ=1 preferences, and SOE policies.
+- Creating a Link or Listener is not enough; create at least one logical Slave. One TCP endpoint may carry multiple logical Slaves with different common addresses.
 
-### 1.1 Master Home
+## Loopback walkthrough
 
-![Master Home](../../assets/screenshots/master-home-linked.png)
+1. Start Slave and create a Listener named `Connection-1` on `127.0.0.1:2404`.
+2. Create `Slave-1` below it with common address `1`, then add or import test points.
+3. Select the Listener or logical Slave and start listening.
+4. Start Master, create a Link to `127.0.0.1:2404`, then add a logical Slave with common address `1`.
+5. Connect; if automatic actions are disabled, send STARTDT and station interrogation manually.
+6. Confirm values, quality, cause, timestamps, and frames in the data and communication views.
 
-The Master home page is used to manage connection status, communication status, and main operation entries.
+IEC104 application commands are blocked while TCP is connected but STARTDT is incomplete.
 
-### 1.2 Master Disconnected State
+## Master operations
 
-![Master Disconnected State](../../assets/screenshots/master-home-unlink.png)
+### Connection lifecycle
 
-In the disconnected state, configure the slave IP address, port, and IEC104 communication parameters before establishing a connection.
+The normal flow is TCP connect → STARTDT confirmation → application commands → optional automatic interrogation. Automatic reconnect covers remote disconnects and protocol timeouts; user-initiated disconnect does not reconnect. Reconnect parameters are edited on the Link.
 
-### 1.3 Basic Workflow
+![Master Link settings for link timers, reconnect, and automatic actions](../../assets/screenshots/master-link-settings.png)
 
-1. Start IEC104 Master Simulator.
-2. Configure the slave IP address and port.
-3. Configure IEC104 communication parameters.
-4. Click the connect button to establish the communication connection.
-5. Send general interrogation, control, setpoint, or clock synchronization commands according to your test requirements.
-6. View sent and received messages and parsed results in the message monitoring area.
+*The Link editor configures K/W/T0–T3, retry policy, automatic STARTDT, and automatic interrogation in one place.*
 
-### 1.4 Master Control Command
+### Acquisition and system commands
 
-![Master Control Command](../../assets/screenshots/master-single-command.png)
+The top command area provides:
 
-The control command function can be used to send control commands to a slave device and verify the slave-side control handling logic.
+- station and group 1–16 interrogation;
+- all-counter and group 1–4 interrogation with read, freeze, freeze-and-reset, and reset qualifiers;
+- IOA read, clock synchronization, process reset, and test command;
+- manual STARTDT/STOPDT and TESTFR.
 
-### 1.5 Master Point History
+Parameter ASDUs do not have a complete send workflow.
 
-![Master Point History](../../assets/screenshots/master-point-history.png)
+![Master counter-interrogation and freeze parameters](../../assets/screenshots/master-counter-interrogation.png)
 
-Point history can be used to view point value change records and analyze status or measurement changes.
+*Counter interrogation selects all counters or groups 1–4 together with read, freeze, freeze-and-reset, or reset.*
 
-### 1.6 Master Message Monitoring
+### Controls
 
-![Master Message Monitoring](../../assets/screenshots/master-message-panel.png)
+Supported commands include single, double, regulating step, normalized/scaled/short-float setpoints, and 32-bit bitstring, including corresponding CP56Time2a variants.
 
-Master message monitoring displays sent and received messages, message direction, timestamps, and parsed results in real time.
+- **Automatic SBO** sends Execute after a confirmed Select.
+- **Manual mode** exposes Select, Execute, and cancel separately.
+- **Direct mode** sends Execute only.
 
-## 2. Slave Simulator
+The Master dispatch mode must match the Slave SBO/direct configuration. Use confirmation, termination, timeout, and captured frames as the result.
 
-IEC104 Slave Simulator is used to simulate an IEC104 slave device. It can listen for master connections and respond to general interrogation and control commands.
+![Completed automatic SBO control workflow](../../assets/screenshots/master-control-sbo.png)
 
-### 2.1 Slave Home
+*Automatic SBO exposes Select, Confirm, Execute, and Finish. A point-value change alone is not sufficient evidence of command success.*
 
-![Slave Home](../../assets/screenshots/slave-home-linked.png)
+### Point tables and file transfer
 
-The Slave home page is used to view the slave running status, listening status, and master connection status.
+Master imports CSV, JSON, and XML point tables. Append-only rejects the entire batch on any existing IOA; replace-all affects only the selected logical Slave. Point-table export is unavailable.
 
-### 2.2 Slave Disconnected State
+![Point-table preflight detecting append-only IOA conflicts](../../assets/screenshots/point-table-import-preview.png)
 
-![Slave Disconnected State](../../assets/screenshots/slave-home-unlink.png)
+*This example intentionally shows IOA conflicts. Preflight reports errors and the previous point count before writing, and displays at most 200 preview records.*
 
-In the disconnected state, configure the listening address, listening port, and IEC104 communication parameters before starting the listener.
+After STARTDT, Master can fetch a remote directory, query logs by name and time, upload, download, or cancel the current transfer. One task may run per connection. Transfer is single-section and its limit is derived from maximum ASDU size.
 
-### 2.3 Basic Workflow
+![Remote file directory and download parameters](../../assets/screenshots/file-transfer.png)
 
-1. Start IEC104 Slave Simulator.
-2. Configure the local listening IP and port.
-3. Configure the common address and IEC104 communication parameters.
-4. Create a station or import point table data.
-5. Start listening.
-6. Use a master tool to connect to Slave Simulator.
-7. Simulate data changes or event uploads according to your test requirements.
+*File transfer requires completed STARTDT. Select a remote entry and local destination before starting a download.*
 
-### 2.4 Create Station
+## Slave operations
 
-![Create Station](../../assets/screenshots/slave-create-station.png)
+### Lifecycle and behavior policy
 
-When creating a station, configure the station name, common address, point table, and related communication parameters.
+Stopping listening shuts down background tasks and freezes runtime values while retaining simulation configuration and the point selection for the next start.
 
-### 2.5 Slave Data Simulation
+The mismatch policy applies only when a command ASDU type differs from the point-table type; it is not a whole-stack compatibility level:
 
-![Slave Data Simulation](../../assets/screenshots/slave-data-simulated.png)
+- **strict** rejects with a negative confirmation;
+- **compatible** executes;
+- **debug** executes and records detailed warnings.
 
-Slave data simulation can be used to simulate status, measurement, control, setpoint, and event data for master station integration and protocol testing.
+Each logical Slave independently uses SBO or direct controls. An SBO selection expires after the configured timeout.
 
-### 2.6 Slave Message Monitoring
+### Point table and command mapping
 
-![Slave Message Monitoring](../../assets/screenshots/slave-message-panel.png)
+Create points from templates, edit them manually, or import CSV/JSON/XML. Store `control_ioa` on the monitoring point with the corresponding control IOA. Points may also join station/group 1–16 interrogation and all/group 1–4 counter interrogation.
 
-Slave message monitoring displays IEC104 communication messages between the master and the slave in real time.
+![Slave command-to-monitor point mapping](../../assets/screenshots/slave-command-mapping.png)
 
-### 2.7 Slave SOE Monitoring
+*The control point is the source and the monitoring point is the target. Batch fill populates only compatible targets that are still unmapped.*
 
-![Slave SOE Monitoring](../../assets/screenshots/slave-soe-event-panel.png)
+### Command handling and simulation
 
-SOE monitoring is used to view sequence-of-events records and verify status changes, event uploads, and timestamp-related logic.
+Slave handles link control, interrogation, counter interrogation, common controls/setpoints, bitstring, read, clock sync, reset, test command, and file transfer. Parameter ASDUs are not processed as a parameter-setting workflow.
 
-## 3. Message Details
+Simulation provides 15 type-constrained modes: fixed, step, pulse, square, rising/falling saw, triangle, sine, ramp-hold-fall, stair, exponential approach, damped oscillation, random, random walk, and counter.
 
-IEC104 Simulator supports message detail viewing to analyze specific message structures and field meanings.
+- Automatic upload requires a changed value, enabled automatic upload, and a peer that completed STARTDT.
+- Force upload also requires an active data-transfer connection.
+- Avalanche testing flips binary indications; it is not network fault injection.
+- SOE is generated only when **SOE Upload** is enabled for the logical Slave, the peer has completed STARTDT, and a point value changes. A control-triggered SOE additionally requires the monitoring point's `control_ioa` to map to that control point. With SOE Upload disabled, ordinary spontaneous data is sent without a timestamp and is not added to either SOE panel. There is no analog threshold configuration.
 
-![Message Details](../../assets/screenshots/message-detail-dialog.png)
+| Simulation parameters and waveform preview | Active simulation state |
+| --- | --- |
+| ![Step waveform configuration in Slave](../../assets/screenshots/slave-simulation.png) | ![Point values while Slave simulation is running](../../assets/screenshots/slave-simulation-running.png) |
 
-Message details can be used to:
+Once simulation starts, the toolbar and point table show the stop action and running markers. Stopping the Listener stops simulation first, so values and cursors should not continue changing after stop completes. Avalanche testing has no separate dialog; verify it through the notification, point values, and captured frames.
 
-- View raw messages.
-- View message direction.
-- View message time.
-- View structured parsing results.
-- Troubleshoot communication issues.
-- Export PCAP or PCAPNG files for further analysis.
+## Frames, SOE, and parser
 
-## 4. Language Switching
+The communication monitor supports search, direction/slave/type filters, table/tree details, and CSV/TXT/PCAP/PCAPNG export. The SOE panel supports viewing, filtering, and clearing but has no independent CSV export.
 
-Starting from `v0.2.0`, IEC104 Simulator supports i18n.
+![CP56-timestamped SOE generated after a mapped control changes a monitoring point](../../assets/screenshots/soe-panel.png)
 
-Currently supported languages:
+*After control execution, the mapped monitoring point is uploaded as Type 30 with COT 3 and appears in the SOE panel.*
 
-- Simplified Chinese.
-- English.
+| Communication monitor | Parsed frame tree |
+| --- | --- |
+| ![Communication monitor with TX and RX frames](../../assets/screenshots/message-monitor.png) | ![Parsed APCI and ASDU tree](../../assets/screenshots/message-tree.png) |
 
-If some UI text is not refreshed immediately after switching the language, try restarting the application.
+**Tools → Message Parser** parses one complete APDU at a time, including the `68` start byte and APCI.
 
-## 5. Point Table Configuration
+## Troubleshooting
 
-Slave Simulator supports simulated data based on point table configuration.
+### Cannot connect
 
-A point table usually describes the following information:
+Match the Master Link and Slave Listener address, start the Listener, confirm the port is free, and check Windows Firewall. Connect only to authorized test networks.
 
-- Information object address.
-- Point name.
-- Data type.
-- Initial value.
-- Change status.
-- Other test parameters.
+### TCP connects but no data appears
 
-The specific point table format is subject to the import template or sample file provided by the current version.
+Complete STARTDT, match the logical Slave common address on both sides, send station interrogation, and inspect the communication monitor.
 
-## 6. Data Simulation
+### A control is rejected
 
-Slave Simulator can simulate slave data based on the point table.
+Check the IOA, expected ASDU type, Master dispatch mode, and Slave SBO/direct configuration. A strict type mismatch returns a negative confirmation.
 
-Common simulated data includes:
+### Simulation changes locally but is not uploaded
 
-- Status data.
-- Measurement data.
-- Control data.
-- Setpoint data.
-- Event data.
+Confirm that the Listener is running, the peer completed STARTDT, and automatic upload is enabled. Force upload also requires an active data-transfer connection.
 
-The actual supported scope is subject to the UI of the current version.
+### Point-table import fails
 
-## 7. Message Export
-
-IEC104 Simulator supports exporting communication messages for further analysis with tools such as Wireshark.
-
-Common export formats include:
-
-- PCAP.
-- PCAPNG.
-
-The exported message files can be used for:
-
-- Issue reproduction.
-- Protocol analysis.
-- Test reports.
-- Further analysis with third-party tools.
-
-## 8. Usage Recommendations
-
-Before testing, it is recommended to check the following items:
-
-- The IP and port configuration of the master and slave are correct.
-- The IEC104 parameters are consistent with the peer device.
-- Windows Firewall allows the application to communicate.
-- The test point table matches the actual test scenario.
-- The version number is consistent with the documentation.
-
-## 9. Feedback
-
-If you find any issues, please submit feedback in GitHub Issues and provide the following information as much as possible:
-
-- Software version.
-- Operating system version.
-- Whether you are using Master or Slave.
-- Steps to reproduce the issue.
-- Error screenshots.
-- Related logs or message files.
+Use CSV, JSON, or XML. Put standard type names in the CSV `data_type` field. Append-only rejects the entire batch if any IOA already exists.

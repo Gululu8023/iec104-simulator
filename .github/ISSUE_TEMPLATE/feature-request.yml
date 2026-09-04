@@ -1,0 +1,35 @@
+name: Feature request
+description: Propose a focused improvement to the simulator
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Integration scenario
+      description: Explain the IEC104 workflow or testing problem this request would address.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: protocol
+    attributes:
+      label: Protocol details
+      description: Include relevant Type IDs, COT values, timing, or interoperability requirements when applicable.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I checked the protocol support matrix and existing issues.
+          required: true

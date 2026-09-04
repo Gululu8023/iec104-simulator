@@ -1,0 +1,25 @@
+# 依赖目录
+node_modules
+
+# 构建产物
+dist
+build
+coverage
+
+# 日志
+*.log
+
+# 锁文件一般不需要格式化
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# 自动生成文件
+*.min.js
+*.min.css
+auto-imports.d.ts
+components.d.ts
+*.tsbuildinfo
+
+.codex
+.claude

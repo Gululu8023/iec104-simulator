@@ -1,0 +1,177 @@
+.app-dialog-form:not(.el-form--label-top) :is(.el-form-item__label) {
+  color: #516176;
+  font-weight: 500;
+  font-size: var(--dialog-label-font-size, 13px);
+  min-height: var(--dialog-control-min-height, 34px);
+  line-height: var(--dialog-control-min-height, 34px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.app-dialog-form :is(.el-form-item__content) {
+  min-width: 0;
+}
+
+.app-dialog-form:not(.el-form--label-top) :is(.el-form-item__label-wrap) {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+/* Dialog field tracks: every logical column owns its label width. */
+.app-dialog-field-grid--1,
+.app-dialog-field-grid--2,
+.app-dialog-field-grid--3 {
+  display: grid;
+  align-items: start;
+  gap: 12px 10px;
+  min-width: 0;
+}
+
+.app-dialog-field-grid--1 {
+  grid-template-columns: max-content minmax(0, 1fr);
+}
+
+.app-dialog-field-grid--2 {
+  grid-template-columns:
+    max-content minmax(0, 1fr)
+    max-content minmax(0, 1fr);
+}
+
+.app-dialog-field-grid--3 {
+  grid-template-columns:
+    max-content minmax(0, 1fr)
+    max-content minmax(0, 1fr)
+    max-content minmax(0, 1fr);
+}
+
+.app-dialog-field-label {
+  min-height: var(--dialog-control-min-height, 34px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #516176;
+  font-size: var(--dialog-label-font-size, 13px);
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.app-dialog-field-control {
+  min-width: 0;
+  min-height: var(--dialog-control-min-height, 34px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.app-dialog-inline-control {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.app-dialog-inline-control .app-dialog-field-hint {
+  margin: 0;
+  min-width: 0;
+}
+
+.app-dialog-field-control.el-form-item {
+  margin-bottom: 0;
+}
+
+.app-dialog-field-control.el-form-item > .el-form-item__content {
+  width: 100%;
+  min-width: 0;
+}
+
+.app-dialog-field-control.el-form-item .el-form-item__error {
+  position: static;
+  margin-top: 4px;
+}
+
+.app-dialog-field-control > :is(.el-input, .el-input-number, .el-select, .el-date-editor) {
+  width: 100%;
+}
+
+/* Keep interchangeable Element Plus controls on one shared dialog rhythm. */
+.app-dialog-shell :is(.el-input, .el-input-number, .el-select, .el-date-editor),
+.app-dialog-shell :is(.el-input__wrapper, .el-select__wrapper) {
+  height: var(--dialog-control-min-height, 34px);
+  min-height: var(--dialog-control-min-height, 34px);
+  box-sizing: border-box;
+}
+
+.app-dialog-field-control.app-dialog-action-control {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.app-dialog-field-control.app-dialog-action-control
+  > :is(.el-input, .el-input-number, .el-select, .el-date-editor) {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+}
+
+.app-dialog-field-control.app-dialog-action-control > .el-button {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.app-dialog-field-label.app-dialog-field--full {
+  grid-column: 1;
+}
+
+.app-dialog-field-control.app-dialog-field--full {
+  grid-column: 2 / -1;
+}
+
+.app-dialog-field-grid--1 > .app-dialog-field-control.app-dialog-field--full:only-child {
+  grid-column: 1 / -1;
+}
+
+.app-dialog-field-hint {
+  margin: 4px 0 0;
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .app-dialog-field-grid--3 {
+    grid-template-columns:
+      max-content minmax(0, 1fr)
+      max-content minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .app-dialog-field-grid--2,
+  .app-dialog-field-grid--3 {
+    grid-template-columns: max-content minmax(0, 1fr);
+  }
+
+  .app-dialog-actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}
+
+/* Keep dialog tables on the same typography baseline as dialog labels. */
+.app-dialog-shell .el-table {
+  font-size: var(--dialog-label-font-size, 13px);
+}
+
+.app-dialog-shell .el-table :is(th.el-table__cell, td.el-table__cell),
+.app-dialog-shell .el-table :is(th.el-table__cell, td.el-table__cell) .cell {
+  font-size: var(--dialog-label-font-size, 13px);
+}

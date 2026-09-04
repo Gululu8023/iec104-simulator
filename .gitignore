@@ -1,15 +1,33 @@
-.DS_Store
-Thumbs.db
-
-.vscode/
-
-dist/
-build/
+# 依赖 / 包管理缓存
 node_modules/
-target/
+.pnpm-store/
 
-*.exe
-*.msi
-*.zip
-*.7z
-*.rar
+# 构建产物
+dist
+target/
+**/gen/schemas
+
+# 日志
+logs
+*.log
+*.db
+*.db-*
+
+# 本地环境配置
+.env
+.env.*
+!.env.example
+
+# IDE / 本地工具目录
+.idea
+.vscode
+
+# 自动生成文件
+auto-imports.d.ts
+components.d.ts
+*.tsbuildinfo
+
+# 工具生成或临时文件
+.work-plans/
+
+bugs/

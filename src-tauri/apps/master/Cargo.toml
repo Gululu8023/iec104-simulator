@@ -1,0 +1,31 @@
+[package]
+name = "iec104-simulator-master"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "IEC104 主站模拟器"
+publish = false
+license.workspace = true
+repository.workspace = true
+
+[lib]
+name = "iec104_simulator_master_lib"
+path = "src/lib.rs"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[[bin]]
+name = "iec104-simulator-master"
+path = "src/main.rs"
+
+[dependencies]
+iec104-simulator-backend.workspace = true
+tauri.workspace = true
+tauri-plugin-dialog.workspace = true
+tokio.workspace = true
+
+[build-dependencies]
+tauri-build.workspace = true
+
+[features]
+custom-protocol = ["tauri/custom-protocol"]

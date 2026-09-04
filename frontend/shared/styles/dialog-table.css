@@ -1,0 +1,590 @@
+/* ---- Shared Dialog Table (clean, borderless interior) ---- */
+.app-dialog-table-wrap {
+  border: 1px solid #e8ecf1;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.app-dialog-table-wrap .el-table,
+.app-dialog-table.el-table {
+  border: none;
+}
+
+.app-dialog-table-wrap .el-table::before,
+.app-dialog-table.el-table::before {
+  display: none;
+}
+
+.app-dialog-table-wrap .el-table .el-table__inner-wrapper::before,
+.app-dialog-table.el-table .el-table__inner-wrapper::before,
+.app-dialog-table-wrap .el-table .el-table__border-left-patch,
+.app-dialog-table.el-table .el-table__border-left-patch,
+.app-dialog-table-wrap .el-table .el-table__border-bottom-patch,
+.app-dialog-table.el-table .el-table__border-bottom-patch {
+  display: none;
+}
+
+.app-dialog-table-wrap .el-table .el-table__inner-wrapper,
+.app-dialog-table.el-table .el-table__inner-wrapper {
+  border: none;
+}
+
+.app-dialog-table-wrap .el-table td.el-table__cell,
+.app-dialog-table.el-table td.el-table__cell,
+.app-dialog-table-wrap .el-table th.el-table__cell,
+.app-dialog-table.el-table th.el-table__cell {
+  border-right: none !important;
+}
+
+.app-dialog-table-wrap .el-table .el-table__header th,
+.app-dialog-table.el-table .el-table__header th {
+  background-color: #f9fafb !important;
+  font-weight: 600;
+  color: var(--text-secondary, #6b7280);
+  font-size: var(--dialog-label-font-size, 13px);
+}
+
+.app-dialog-table-wrap .el-table .el-table__body td,
+.app-dialog-table.el-table .el-table__body td {
+  padding: 6px 0;
+}
+
+.app-dialog-table-wrap .el-table .el-table__empty-text,
+.app-dialog-table.el-table .el-table__empty-text {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+/* Table alignment baseline in dialogs: text left, numeric right, controls center. */
+.app-dialog-shell .el-table :is(th.el-table__cell, td.el-table__cell) .cell {
+  text-align: left;
+}
+
+.app-dialog-shell .el-table :is(th.el-table__cell, td.el-table__cell).is-right .cell {
+  text-align: right !important;
+}
+
+.app-dialog-shell .el-table :is(th.el-table__cell, td.el-table__cell).is-center .cell {
+  text-align: center !important;
+}
+
+/* Dialog forms: stable reading axis (label right, input text left). */
+.app-dialog-shell :is(.el-input__inner, .el-textarea__inner) {
+  text-align: var(--dialog-input-text-align, left) !important;
+}
+
+.app-dialog-shell .el-input-number .el-input__inner {
+  text-align: var(
+    --dialog-number-input-text-align,
+    var(--dialog-input-text-align, left)
+  ) !important;
+}
+
+.app-dialog-shell
+  :is(.el-input__wrapper, .el-select__wrapper, .el-input-number .el-input__wrapper) {
+  padding-left: var(--dialog-control-padding-inline-start, 11px) !important;
+}
+
+.app-dialog-shell :is(.el-select__selected-item, .el-select__placeholder) {
+  text-align: left;
+}
+
+.app-dialog-body .app-hint-text {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.app-dialog-help {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+.app-dialog-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Dialog utility: list toolbar (count + button group) */
+.app-dialog-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.app-dialog-toolbar-count {
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.app-dialog-toolbar-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.app-dialog-btn-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-dialog-btn-group .el-button + .el-button {
+  margin-left: 0;
+}
+
+.app-dialog-btn {
+  min-width: 0;
+  height: var(--dialog-toolbar-btn-height, 28px);
+  padding: 0 var(--dialog-toolbar-btn-padding-x, 12px);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.app-dialog-btn .el-icon {
+  font-size: 13px;
+}
+
+.app-dialog-btn--outline {
+  border-color: #d1d9e8 !important;
+  color: #475569 !important;
+  background: #ffffff !important;
+}
+
+.app-dialog-btn--outline .el-icon {
+  color: #94a3b8;
+}
+
+.app-dialog-btn--outline:hover {
+  border-color: #a7b5c8 !important;
+  color: #334155 !important;
+  background: #f8fafc !important;
+}
+
+.app-dialog-btn--outline:active {
+  border-color: #94a3b8 !important;
+  color: #334155 !important;
+  background: #f1f5f9 !important;
+}
+
+.app-dialog-btn--soft-primary {
+  border-color: #bfd2f9 !important;
+  color: var(--primary-color, #2563eb) !important;
+  background: #eaf2ff !important;
+}
+
+.app-dialog-btn--soft-primary:hover {
+  border-color: #9dbcf7 !important;
+  color: var(--primary-color-hover, #1d4ed8) !important;
+  background: #deebff !important;
+}
+
+.app-dialog-btn--soft-primary:active {
+  border-color: #85acf5 !important;
+  color: #1e40af !important;
+  background: #d4e5ff !important;
+}
+
+/* Legacy inline radio fields keep their vertical layout. Field grids retain
+ * their grid display so labels and controls continue to share one row. */
+.conn-inline-field.app-dialog-radio-field {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.app-dialog-radio-row {
+  display: flex;
+  align-items: center;
+  gap: var(--dialog-radio-label-gap, 24px);
+  min-height: var(--dialog-control-min-height, 34px);
+}
+
+.app-dialog-radio-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dialog-radio-option-gap, 12px);
+  flex-wrap: wrap;
+}
+
+.app-dialog-radio-group .el-radio {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0;
+  flex: 0 0 auto;
+}
+
+.app-dialog-switch-control {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.app-dialog-radio-group .el-radio__input {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0;
+}
+
+.app-dialog-radio-group .el-radio__inner {
+  width: 13px;
+  height: 13px;
+}
+
+.app-dialog-radio-group .el-radio__inner::after {
+  width: 5px;
+  height: 5px;
+}
+
+.app-dialog-radio-group .el-radio__label {
+  display: inline-flex;
+  align-items: center;
+  padding-left: var(--dialog-radio-dot-label-gap, 5px);
+  line-height: 1.2;
+  font-size: 13px;
+  font-weight: 500;
+  color: #4b5563;
+  white-space: nowrap;
+}
+
+.app-dialog-radio-group .el-radio__input.is-checked + .el-radio__label {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.app-dialog-radio-desc {
+  margin: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+.app-dialog-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.app-dialog-note .el-icon {
+  font-size: 15px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.app-dialog-note--info {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+}
+
+.app-dialog-note--warning {
+  background-color: #fdf6ec;
+  color: #b45309;
+}
+
+.app-dialog-note--error {
+  background-color: #fef2f2;
+  color: #b91c1c;
+}
+
+.app-dialog-note--success {
+  background-color: #f0fdf4;
+  color: #15803d;
+}
+
+.app-object-editor {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: 24px;
+  min-height: 0;
+  height: 100%;
+  align-items: stretch;
+}
+
+.app-object-list {
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  box-shadow: none;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-object-list-header {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  border-bottom: none;
+}
+
+.app-object-list-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.app-object-list-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.app-object-list-body {
+  height: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: auto;
+  padding: 6px 0;
+}
+
+.app-object-item {
+  border: none;
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 8px 10px 8px 12px;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    background-color 0.16s ease;
+}
+
+.app-object-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: transparent;
+  transition: background-color 0.16s ease;
+}
+
+.app-object-item + .app-object-item {
+  margin-top: 10px;
+}
+
+.app-object-item:hover {
+  background: #f5f7fa;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+}
+
+.app-object-item:hover::before {
+  background: #bfdcff;
+}
+
+.app-object-item.active {
+  background: #ecf5ff;
+  box-shadow: 0 6px 16px 0 rgba(64, 158, 255, 0.2);
+}
+
+.app-object-item.active::before {
+  background: #409eff;
+}
+
+.app-object-item-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.app-object-item-summary {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.app-object-detail {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-object-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.app-object-detail-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.app-object-detail-body {
+  height: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: auto;
+}
+
+.app-object-empty {
+  min-height: 120px;
+  border: 1px dashed #d7e2f0;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #94a3b8;
+  background: #f5f8fd;
+}
+
+.app-object-empty-compact {
+  min-height: 70px;
+  gap: 4px;
+}
+
+.app-dialog-body :is(.el-input__wrapper, .el-select__wrapper, .el-input-number .el-input__wrapper) {
+  background: #f3f6fb;
+  box-shadow: 0 0 0 1px #dce5f2 inset;
+  transition:
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.app-dialog-body
+  :is(.el-input__wrapper, .el-select__wrapper, .el-input-number .el-input__wrapper):hover {
+  background: #ffffff;
+  box-shadow: 0 0 0 1px #c8d6ea inset;
+}
+
+.app-dialog-body
+  :is(.el-input__wrapper, .el-select__wrapper, .el-input-number .el-input__wrapper).is-focus,
+.app-dialog-body
+  :is(.el-input__wrapper, .el-select__wrapper, .el-input-number .el-input__wrapper).is-focused {
+  background: #ffffff;
+  box-shadow:
+    0 0 0 1px #4a88f0 inset,
+    0 0 0 3px rgba(74, 136, 240, 0.14);
+}
+
+.app-dialog-input {
+  width: 100%;
+}
+
+.app-dialog-input :is(.el-input-number, .el-select) {
+  width: 100%;
+}
+
+.app-tonal-add-btn {
+  width: 100% !important;
+  height: 42px !important;
+  border: none !important;
+  border-radius: 8px !important;
+  background: #ecf5ff !important;
+  color: #409eff !important;
+  font-weight: 500 !important;
+}
+
+.app-tonal-add-btn.app-tonal-add-btn-sm {
+  width: auto !important;
+  height: 30px !important;
+  padding: 0 12px !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+}
+
+.app-tonal-add-btn:hover {
+  background: #d9ecff !important;
+  color: #2e8be6 !important;
+}
+
+.app-tonal-add-btn:active {
+  background: #ecf5ff !important;
+  transform: scale(0.98);
+}
+
+.app-config-dialog .app-object-detail-header {
+  display: none;
+}
+
+.app-config-dialog
+  .app-object-detail
+  :is(.el-input__wrapper, .el-select__wrapper, .el-input-number .el-input__wrapper) {
+  border: 1px solid transparent;
+  background: #f5f7fa;
+  box-shadow: none !important;
+}
+
+.app-config-dialog
+  .app-object-detail
+  :is(.el-input__wrapper, .el-select__wrapper, .el-input-number .el-input__wrapper):hover {
+  background: #eef2f7;
+  box-shadow: none !important;
+}
+
+.app-config-dialog
+  .app-object-detail
+  :is(.el-input__wrapper, .el-select__wrapper, .el-input-number .el-input__wrapper).is-focus,
+.app-config-dialog
+  .app-object-detail
+  :is(.el-input__wrapper, .el-select__wrapper, .el-input-number .el-input__wrapper).is-focused {
+  border-color: #409eff;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px #409eff !important;
+}
+
+@media (max-width: 960px) {
+  .app-object-editor {
+    grid-template-columns: 1fr;
+  }
+
+  .app-config-object-editor .app-object-list {
+    max-height: 220px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .app-master-config-dialog .master-object-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

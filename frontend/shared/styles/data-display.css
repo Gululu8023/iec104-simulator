@@ -1,0 +1,717 @@
+/* ================================================================
+   统一数据表格样式 (Unified Data Table)
+   ================================================================ */
+.custom-data-table {
+  width: 100%;
+  font-size: 13px !important;
+  --app-data-table-row-height: 44px;
+  --app-data-table-header-height: 44px;
+  --el-table-header-bg-color: #f9fafb;
+  --el-table-border-color: transparent;
+}
+
+.custom-data-table.el-table--small {
+  --app-data-table-row-height: 36px;
+  --app-data-table-header-height: 36px;
+}
+
+.custom-data-table.el-table--large {
+  --app-data-table-row-height: 48px;
+  --app-data-table-header-height: 48px;
+}
+
+/* Base Styles & Borders */
+.custom-data-table .el-table__inner-wrapper::before {
+  display: none;
+  /* Hide bottom border */
+}
+
+/* Header Styles */
+.custom-data-table th.el-table__cell {
+  background-color: var(--el-table-header-bg-color) !important;
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 12px;
+  text-transform: uppercase;
+  height: var(--app-data-table-header-height);
+  border-right: none !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  padding: 0 !important;
+  /* Reset - let .cell handle padding */
+  white-space: nowrap;
+}
+
+/* Cell Layout & Typography */
+.custom-data-table td.el-table__cell {
+  padding: 0 !important;
+  /* Reset - let .cell handle padding */
+  height: var(--app-data-table-row-height);
+  border-right: none !important;
+  border-bottom: 1px solid #f3f4f6 !important;
+}
+
+/* Unified .cell padding for both th and td - ensures perfect vertical alignment */
+.custom-data-table .el-table__cell .cell {
+  padding: 0 12px !important;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.custom-data-table th.el-table__cell .cell {
+  line-height: 1.2;
+}
+
+.custom-data-table th.el-table__cell .caret-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Force header text-align to match body for aligned columns */
+/* Right-aligned columns (address, value, etc.) */
+.custom-data-table th.el-table__cell.is-right .cell,
+.custom-data-table td.el-table__cell.is-right .cell {
+  text-align: right !important;
+}
+
+/* Center-aligned columns (quality, actions, etc.) */
+.custom-data-table th.el-table__cell.is-center .cell,
+.custom-data-table td.el-table__cell.is-center .cell {
+  text-align: center !important;
+  justify-content: center;
+}
+
+/* Left-aligned columns (default) */
+.custom-data-table th.el-table__cell.is-left .cell,
+.custom-data-table td.el-table__cell.is-left .cell {
+  text-align: left !important;
+}
+
+.custom-data-table .el-table__row:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Text Utilities within Table */
+.custom-data-table .font-mono {
+  font-family: var(--font-mono) !important;
+  color: var(--text-secondary);
+}
+
+.custom-data-table .description-text {
+  color: var(--text-secondary);
+}
+
+.custom-data-table .description-placeholder {
+  color: #d1d5db;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.custom-data-table .timestamp-text {
+  color: #9ca3af;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+
+.custom-data-table .mapping-target {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  min-width: 0;
+  line-height: 1;
+}
+
+.custom-data-table .mapping-target__type {
+  display: inline-flex;
+  align-items: center;
+  color: #64748b;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.custom-data-table .mapping-target__separator {
+  display: inline-flex;
+  align-items: center;
+  color: #94a3b8;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.custom-data-table .mapping-target__ioa {
+  display: inline-flex;
+  align-items: center;
+  color: #1e293b;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* Value Column Styles */
+.custom-data-table .value-column .cell {
+  display: flex;
+  justify-content: flex-end;
+  /* Force Right Align */
+  padding-right: 12px !important;
+}
+
+.custom-data-table .control-type-column .cell {
+  justify-content: center;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+.custom-data-table .state-column .cell {
+  justify-content: center;
+}
+
+.custom-data-table .value-cell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  width: 100%;
+}
+
+.custom-data-table .value-text {
+  font-weight: 600;
+  font-size: 13px;
+  font-family: var(--font-mono);
+}
+
+/* ── Semantic Value State Colors ─────────────────────────
+ * value-on    = 合(ON/Closed)  → 红色 (电力行业: 合=红)
+ * value-off   = 分(OFF/Open)   → 绿色 (电力行业: 分=绿)
+ * value-transient = 中间态     → 橙色警告
+ * value-invalid   = 无效态     → 灰红
+ * value-normal    = 遥测/累计  → 默认色
+ * ──────────────────────────────────────────────────────── */
+.custom-data-table .value-on {
+  color: #dc2626 !important;
+}
+
+.custom-data-table .value-off {
+  color: #16a34a !important;
+}
+
+.custom-data-table .value-transient {
+  color: #d97706 !important;
+}
+
+.custom-data-table .value-invalid {
+  color: #9ca3af !important;
+  text-decoration: line-through;
+}
+
+.custom-data-table .value-normal {
+  color: #334155;
+}
+
+/* Simulation Icon */
+.custom-data-table .simulation-icon {
+  font-size: 14px;
+  color: var(--warning-color);
+  animation: pulse 2s infinite;
+  display: flex;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Action Column */
+.custom-data-table .action-column .cell {
+  justify-content: center;
+  display: flex;
+}
+
+.custom-data-table .hover-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.custom-data-table .hover-actions .el-button {
+  margin: 0 !important;
+}
+
+/* =========================================
+   Connection Dialog (Slave)
+   ========================================= */
+
+/* --- Protocol Tag in Header --- */
+.conn-protocol-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: #eef4ff;
+  color: #3b82f6;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+  border: 1px solid #c7dbff;
+  user-select: none;
+  flex-shrink: 0;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+/* --- Flat Dialog Body --- */
+.conn-flat-body {
+  padding: 20px 24px var(--dialog-content-bottom-gap, 20px) !important;
+}
+
+/* --- Filled Input Style (no border, gray bg, focus blue) --- */
+.conn-flat-body .el-input__wrapper,
+.conn-flat-body .el-input-number .el-input__wrapper,
+.conn-flat-body .el-select__wrapper,
+.app-filled-form .el-input__wrapper,
+.app-filled-form .el-input-number .el-input__wrapper,
+.app-filled-form .el-select__wrapper {
+  background: #f2f3f5 !important;
+  box-shadow: none !important;
+  border: 2px solid transparent !important;
+  border-radius: 6px !important;
+  box-sizing: border-box !important;
+  min-height: var(--dialog-control-min-height, 34px) !important;
+  transition: all 0.2s ease !important;
+}
+
+.conn-flat-body .el-input__wrapper:hover,
+.conn-flat-body .el-input-number .el-input__wrapper:hover,
+.conn-flat-body .el-select__wrapper:hover,
+.app-filled-form .el-input__wrapper:hover,
+.app-filled-form .el-input-number .el-input__wrapper:hover,
+.app-filled-form .el-select__wrapper:hover {
+  background: #eceef1 !important;
+}
+
+.conn-flat-body .el-input__wrapper.is-focus,
+.conn-flat-body .el-input-number.is-focus .el-input__wrapper,
+.conn-flat-body .el-input__wrapper:focus-within,
+.conn-flat-body .el-input-number .el-input__wrapper:focus-within,
+.conn-flat-body .el-select__wrapper.is-focused,
+.app-filled-form .el-input__wrapper.is-focus,
+.app-filled-form .el-input-number.is-focus .el-input__wrapper,
+.app-filled-form .el-input__wrapper:focus-within,
+.app-filled-form .el-input-number .el-input__wrapper:focus-within,
+.app-filled-form .el-select__wrapper.is-focused {
+  background: #ffffff !important;
+  border-color: var(--primary-color, #2563eb) !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1) !important;
+}
+
+.conn-flat-body .el-input-number__decrease,
+.conn-flat-body .el-input-number__increase,
+.app-filled-form .el-input-number__decrease,
+.app-filled-form .el-input-number__increase {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* --- Filled Form Label --- */
+.app-filled-form .el-form-item__label {
+  color: #4a5a73;
+  font-weight: 500;
+  margin-bottom: 6px;
+  white-space: nowrap;
+}
+
+.app-filled-form .el-form-item.is-required:not(.is-no-asterisk) > .el-form-item__label:before {
+  margin-right: 4px;
+}
+
+/* --- Section (replaces collapse panels) --- */
+.conn-section {
+  margin-bottom: 22px;
+}
+
+/* --- Section Title with blue left bar --- */
+.conn-section-title {
+  position: relative;
+  padding-left: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1f2225;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+.conn-section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 16px;
+  border-radius: 2px;
+  background: var(--primary-color, #2563eb);
+}
+
+/* --- Section Title Bar (title + switch) --- */
+.conn-section-title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-width: 0;
+  margin-bottom: 10px;
+}
+
+.conn-section-title-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+
+.conn-section-title-heading .conn-section-title {
+  margin-bottom: 0;
+}
+
+.conn-section-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  padding: 0 8px;
+  border: 1px solid #dbe3ee;
+  border-radius: 10px;
+  background: #f4f7fb;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.conn-section-meta-pill--success {
+  border-color: #bde8d0;
+  background: #edf9f2;
+  color: #16804a;
+}
+
+.conn-section-meta-pill--warning {
+  border-color: #f5d89a;
+  background: #fff8e8;
+  color: #a86608;
+}
+
+.conn-section-title-bar--compact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.conn-section-title-bar--compact .conn-section-title,
+.conn-section-title-bar--compact .conn-switch-title {
+  margin-bottom: 0;
+}
+
+.conn-switch-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #4a5a73;
+}
+
+.conn-section-title-bar--compact .conn-section-title {
+  min-width: 100px;
+  /* Aligns switch buttons vertically */
+}
+
+/* Custom Deep Blue primary overrides for local Dialog */
+.conn-section-title-bar--compact .el-switch.is-checked .el-switch__core {
+  background-color: var(--primary-color, #2563eb) !important;
+  border-color: var(--primary-color, #2563eb) !important;
+}
+
+/* --- Button-Radio Group (Redundancy Mode Selector) --- */
+.conn-pill-tabs.el-radio-group {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.conn-pill-tabs .el-radio-button__inner {
+  border: 1px solid #d9dee8 !important;
+  border-radius: 8px !important;
+  background: #f8fafc !important;
+  color: #4b5563 !important;
+  box-shadow: none !important;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 16px;
+  min-height: 30px;
+  line-height: 1.2;
+  transition: all 0.2s ease;
+}
+
+.conn-pill-tabs .el-radio-button__original-radio:checked + .el-radio-button__inner {
+  background: var(--primary-light, #eff6ff) !important;
+  color: var(--primary-color, #2563eb) !important;
+  border-color: #93c5fd !important;
+  box-shadow: none !important;
+}
+
+.conn-pill-tabs .el-radio-button__inner:hover {
+  background: #f3f4f6 !important;
+  border-color: #c8d0dc !important;
+  color: #374151 !important;
+}
+
+.conn-pill-tabs .el-radio-button__original-radio:checked + .el-radio-button__inner:hover {
+  background: #eaf2ff !important;
+  color: var(--primary-color, #2563eb) !important;
+  border-color: #7fb2fa !important;
+}
+
+/* Inset segmented selector for compact form fields. */
+.app-form-segmented.el-radio-group {
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(var(--app-form-segment-min-width, 72px), 1fr);
+  align-items: center;
+  height: 32px;
+  padding: 3px;
+  border: 1px solid #dfe4ec;
+  border-radius: 7px;
+  background: #f1f3f6;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.app-form-segmented .el-radio-button {
+  min-width: 0;
+  height: 24px;
+}
+
+.app-form-segmented .el-radio-button__inner,
+.app-form-segmented .el-radio-button:first-child .el-radio-button__inner,
+.app-form-segmented .el-radio-button:last-child .el-radio-button__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 24px;
+  padding: 0 10px;
+  border: none !important;
+  border-radius: 5px !important;
+  background: transparent !important;
+  color: #64748b !important;
+  box-shadow: none !important;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 24px;
+  white-space: nowrap;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.app-form-segmented .el-radio-button__inner:hover {
+  background: rgba(255, 255, 255, 0.58) !important;
+  color: #334155 !important;
+}
+
+.app-form-segmented .el-radio-button__original-radio:checked + .el-radio-button__inner {
+  background: #ffffff !important;
+  color: var(--primary-color, #2563eb) !important;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(148, 163, 184, 0.18) !important;
+  font-weight: 600;
+}
+
+.app-form-segmented .el-radio-button__original-radio:focus-visible + .el-radio-button__inner {
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2) !important;
+}
+
+.app-form-segmented .el-radio-button.is-disabled .el-radio-button__inner {
+  background: transparent !important;
+  color: #a8b0bd !important;
+  cursor: not-allowed;
+}
+
+/* --- Inline Grid (2 columns) --- */
+.conn-inline-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 14px;
+}
+
+/* 自适应网格表单布局 */
+.conn-adaptive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px 16px;
+}
+
+.conn-adaptive-grid .el-form-item {
+  margin-bottom: 0 !important;
+}
+
+.conn-inline-grid-3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.conn-inline-grid-3 .conn-inline-field {
+  flex: 1;
+}
+
+.conn-inline-grid-3 .conn-inline-label {
+  min-width: var(--dialog-label-width, 68px);
+}
+
+.conn-inline-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--dialog-control-min-height, 34px);
+}
+
+.conn-inline-label {
+  min-width: var(--dialog-label-width, 68px);
+  flex-shrink: 0;
+  font-size: var(--dialog-label-font-size, 13px);
+  font-weight: 500;
+  color: #4a5a73;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.conn-inline-input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 修复紧凑内联表单下，表单校验错误提示位置被挤压或遮挡的问题 */
+.conn-inline-form-item,
+.conn-inline-field .el-form-item {
+  margin-bottom: 0 !important;
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+}
+
+.conn-inline-field .el-form-item__error {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding-top: 2px;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+/* --- Expandable body areas --- */
+.conn-link-params-body,
+.conn-sim-body {
+  padding-top: 2px;
+}
+
+/* --- Input Suffix (unit indicator) --- */
+.conn-input-suffix {
+  font-size: 12px;
+  font-weight: 400;
+  color: #909399;
+  flex-shrink: 0;
+  white-space: nowrap;
+  margin-left: 4px;
+}
+
+/* --- Section Description (gray helper text) --- */
+.conn-section-desc {
+  font-size: 12px;
+  color: #999;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+/* --- Link Params Summary (collapsed state) --- */
+.conn-link-summary {
+  font-size: 12px;
+  color: #909399;
+  font-family: var(--font-mono, monospace);
+  margin-top: 2px;
+}
+
+/* --- Sub-group title within a section --- */
+.conn-group-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #4a5a73;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  margin-top: 10px;
+}
+
+/* --- Horizontal rule within a section --- */
+.conn-hr {
+  height: 1px;
+  background: #f0f1f3;
+  margin: 10px 0;
+}
+
+/* --- Validation Warning --- */
+.conn-inline-warn {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  color: #e6a23c;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 0;
+}
+
+/* --- Tip icon (question mark circle) --- */
+.conn-tip-icon {
+  margin-left: 4px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid #d5dbe7;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #909399;
+  background: #f8fafc;
+  flex-shrink: 0;
+  cursor: help;
+}

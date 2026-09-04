@@ -1,0 +1,49 @@
+[workspace]
+resolver = "3"
+members = ["apps/master", "apps/slave", "libs/backend", "libs/iec60870-parser"]
+default-members = ["apps/master", "apps/slave"]
+
+[workspace.package]
+version = "1.0.0"
+authors = ["Gululu8023 <33918551+Gululu8023@users.noreply.github.com>"]
+edition = "2024"
+rust-version = "1.88"
+license = "Apache-2.0"
+repository = "https://github.com/Gululu8023/iec104-simulator"
+
+[workspace.dependencies]
+# 内部库
+iec104-simulator-backend = { path = "libs/backend" }
+iec60870-parser = { path = "libs/iec60870-parser" }
+
+# 第三方依赖
+base64 = "0.22"
+bitflags = "2"
+bytes = "1.4"
+chrono = { version = "0.4", features = ["serde"] }
+flexi_logger = { version = "0.31", features = ["async"] }
+log = "0.4"
+memchr = "2.7"
+pcap-file = "2.0.0"
+pcap-parser = "0.15"
+quick-xml = { version = "0.38", features = ["serialize"] }
+rusqlite = { version = "0.32", features = ["bundled", "chrono", "serde_json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+smallvec = { version = "1", features = ["union"] }
+tauri = { version = "2", features = [] }
+tauri-build = { version = "2", features = [] }
+tauri-plugin-dialog = "=2.6.0"
+tempfile = "3.8"
+thiserror = "1.0"
+tokio = { version = "1.32", features = ["rt-multi-thread", "macros", "sync", "net", "io-util", "time", "fs"] }
+toml = "0.8"
+uuid = { version = "1.4", features = ["v4"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+incremental = false
+strip = true

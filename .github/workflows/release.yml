@@ -1,0 +1,203 @@
+name: Release Windows Installers
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build and draft release
+    runs-on: windows-latest
+    timeout-minutes: 90
+    env:
+      RELEASE_TAG: ${{ github.ref_name }}
+      REPOSITORY_SLUG: ${{ github.repository }}
+
+    steps:
+      - name: Check out tag
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Set up Rust
+        shell: pwsh
+        run: |
+          rustup toolchain install 1.88.0 --profile minimal
+          rustup default 1.88.0
+          rustc --version
+          cargo --version
+
+      - name: Validate tag and release notes
+        id: release_meta
+        shell: pwsh
+        run: |
+          $tag = $env:RELEASE_TAG
+          if (-not $tag.StartsWith("v")) {
+            throw "Release workflow requires a v* tag, got: $tag"
+          }
+
+          $package = Get-Content -LiteralPath "package.json" -Raw | ConvertFrom-Json
+          $expectedTag = "v$($package.version)"
+          if ($tag -ne $expectedTag) {
+            throw "Tag/version mismatch: tag=$tag, package=$($package.version)"
+          }
+
+          $notesPath = "docs/releases/$tag.md"
+          if (-not (Test-Path -LiteralPath $notesPath -PathType Leaf)) {
+            throw "Release notes are missing: $notesPath"
+          }
+
+          "notes_path=$notesPath" >> $env:GITHUB_OUTPUT
+          "release_title=IEC104 Simulator $tag" >> $env:GITHUB_OUTPUT
+
+      - name: Install frontend dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify release metadata and i18n
+        run: |
+          pnpm verify:release
+          pnpm verify:i18n
+
+      - name: Build Master installer
+        run: pnpm tauri:build:master
+
+      - name: Build Slave installer
+        run: pnpm tauri:build:slave
+
+      - name: Collect installers and generate checksums
+        id: assets
+        shell: pwsh
+        env:
+          SOURCE_NOTES_PATH: ${{ steps.release_meta.outputs.notes_path }}
+        run: |
+          $bundleRoot = Resolve-Path -LiteralPath "src-tauri/target/release/bundle"
+          $staging = Join-Path $env:RUNNER_TEMP "iec104-release-assets"
+          New-Item -ItemType Directory -Path $staging -Force | Out-Null
+
+          $packages = @(
+            Get-ChildItem -LiteralPath $bundleRoot -Recurse -File |
+              Where-Object { $_.Extension -in ".msi", ".exe" } |
+              Sort-Object Name
+          )
+          if ($packages.Count -lt 2) {
+            throw "Expected Master and Slave installers, found $($packages.Count) in $bundleRoot"
+          }
+          if (-not ($packages.Name | Where-Object { $_ -match "master" })) {
+            throw "Master installer was not found in $bundleRoot"
+          }
+          if (-not ($packages.Name | Where-Object { $_ -match "slave" })) {
+            throw "Slave installer was not found in $bundleRoot"
+          }
+
+          foreach ($package in $packages) {
+            $destination = Join-Path $staging $package.Name
+            if (Test-Path -LiteralPath $destination) {
+              throw "Duplicate installer file name: $($package.Name)"
+            }
+            Copy-Item -LiteralPath $package.FullName -Destination $destination
+          }
+
+          $stagedPackages = @(Get-ChildItem -LiteralPath $staging -File | Sort-Object Name)
+          $checksumLines = foreach ($package in $stagedPackages) {
+            $hash = (Get-FileHash -LiteralPath $package.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            "$hash  $($package.Name)"
+          }
+          $checksumPath = Join-Path $staging "SHA256SUMS.txt"
+          $checksumLines | Set-Content -LiteralPath $checksumPath -Encoding utf8NoBOM
+
+          $notesSource = Get-Content -LiteralPath $env:SOURCE_NOTES_PATH -Raw
+          $downloadList = ($stagedPackages | ForEach-Object {
+            $hash = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            "- ``$($_.Name)`` — SHA-256: ``$hash``"
+          }) -join "`n"
+          $releaseDate = Get-Date -Format "yyyy-MM-dd"
+          $repository = "https://github.com/$env:REPOSITORY_SLUG"
+          $tag = $env:RELEASE_TAG
+          $notes = $notesSource.Replace(
+            "Release date / 发布日期：在创建 Release 时填写实际日期。",
+            "Release date / 发布日期：$releaseDate"
+          ).Replace(
+            "创建 Release 时列出实际上传的 Master/Slave Windows x64 安装包及其 SHA-256；不得保留占位附件名或校验值。",
+            $downloadList
+          ).Replace(
+            "At release time, list only the actual Windows x64 Master/Slave attachments and their SHA-256 values. Do not publish placeholder artifact names or hashes.",
+            $downloadList
+          ).Replace(
+            "../../README.md",
+            "$repository/blob/$tag/README.md"
+          ).Replace(
+            "../zh-CN/",
+            "$repository/blob/$tag/docs/zh-CN/"
+          ).Replace(
+            "../en-US/",
+            "$repository/blob/$tag/docs/en-US/"
+          ).Replace(
+            "../../CHANGELOG.en.md",
+            "$repository/blob/$tag/CHANGELOG.en.md"
+          )
+          $generatedNotes = Join-Path $env:RUNNER_TEMP "release-notes.md"
+          $notes | Set-Content -LiteralPath $generatedNotes -Encoding utf8NoBOM
+
+          "staging_dir=$staging" >> $env:GITHUB_OUTPUT
+          "notes_path=$generatedNotes" >> $env:GITHUB_OUTPUT
+
+      - name: Upload workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: iec104-simulator-${{ github.ref_name }}-windows-x64
+          path: ${{ steps.assets.outputs.staging_dir }}
+          if-no-files-found: error
+
+      - name: Create draft GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_NOTES_PATH: ${{ steps.assets.outputs.notes_path }}
+          RELEASE_STAGING_DIR: ${{ steps.assets.outputs.staging_dir }}
+        run: |
+          $tag = $env:RELEASE_TAG
+          $title = "IEC104 Simulator $tag"
+          $notesPath = $env:RELEASE_NOTES_PATH
+          $staging = $env:RELEASE_STAGING_DIR
+
+          $existing = gh release view $tag --json isDraft 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            $release = $existing | ConvertFrom-Json
+            if (-not $release.isDraft) {
+              throw "Release $tag is already published; refusing to replace its assets"
+            }
+            gh release edit $tag --title $title --notes-file $notesPath --draft
+          } else {
+            gh release create $tag --verify-tag --draft --title $title --notes-file $notesPath
+          }
+          if ($LASTEXITCODE -ne 0) {
+            throw "Failed to create or update draft release $tag"
+          }
+
+          $assets = @(Get-ChildItem -LiteralPath $staging -File | ForEach-Object FullName)
+          gh release upload $tag @assets --clobber
+          if ($LASTEXITCODE -ne 0) {
+            throw "Failed to upload release assets for $tag"
+          }

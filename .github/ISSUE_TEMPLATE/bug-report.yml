@@ -1,0 +1,66 @@
+name: Bug report
+description: Report a reproducible problem in the Master or Slave application
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve IEC104 Simulator. Remove device addresses, credentials, file paths, and other sensitive information before submitting logs or frames.
+  - type: dropdown
+    id: application
+    attributes:
+      label: Application
+      options:
+        - Master
+        - Slave
+        - Both
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: "1.0.0 (shown in Help > About)"
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: "Windows 11 23H2 x64"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: Describe the minimum configuration and exact actions.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Sanitized logs or IEC104 frames
+      description: Do not include real device details, credentials, usernames, or private paths.
+      render: text
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I checked the known limitations and removed sensitive information.
+          required: true

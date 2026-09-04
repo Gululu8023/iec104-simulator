@@ -1,0 +1,185 @@
+/* 未选中标签页的分隔线 */
+.el-tabs--card > .el-tabs__header .el-tabs__item:not(.is-active)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 14px;
+  background-color: var(--border-color);
+  z-index: 1;
+}
+
+.el-tabs--card > .el-tabs__header .el-tabs__item:last-child::after {
+  display: none;
+}
+
+/* 关闭按钮样式优化 */
+.el-tabs--card > .el-tabs__header .el-tabs__item .is-icon-close {
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  border-radius: 50%;
+  font-size: 10px;
+  margin-left: 8px;
+  color: var(--text-disabled);
+  transition: all 0.2s;
+}
+
+.el-tabs--card > .el-tabs__header .el-tabs__item:hover .is-icon-close {
+  color: var(--text-secondary);
+}
+
+.el-tabs--card > .el-tabs__header .el-tabs__item .is-icon-close:hover {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+/* 按钮基础样式优化 */
+.btn {
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+/* 滚动条优化 */
+::-webkit-scrollbar {
+  width: var(--app-scrollbar-size);
+  height: var(--app-scrollbar-size);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--app-scrollbar-thumb);
+  border-radius: var(--app-scrollbar-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--app-scrollbar-thumb-hover);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--app-scrollbar-track);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--app-scrollbar-thumb) var(--app-scrollbar-track);
+}
+
+/* 统一 Element Plus el-scrollbar（与数据表格同款） */
+.el-scrollbar__bar {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.el-scrollbar:hover .el-scrollbar__bar,
+.el-scrollbar:focus-within .el-scrollbar__bar {
+  opacity: 1;
+}
+
+.el-scrollbar__thumb {
+  background-color: var(--app-scrollbar-thumb) !important;
+  border-radius: var(--app-scrollbar-radius) !important;
+}
+
+.el-scrollbar__thumb:hover {
+  background-color: var(--app-scrollbar-thumb-hover) !important;
+}
+
+.el-scrollbar__bar.is-vertical {
+  width: var(--app-scrollbar-size);
+}
+
+.el-scrollbar__bar.is-horizontal {
+  height: var(--app-scrollbar-size);
+}
+
+/* 悬浮操作图标 (Hover Actions) */
+.hover-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  visibility: hidden;
+  /* Prevent clicking when hidden */
+  transform: translateY(2px);
+  transition: all 0.2s ease;
+}
+
+/* Table Row Hover 触发显示 */
+.el-table__row:hover .hover-actions {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.hover-actions .el-button {
+  padding: 4px;
+  height: auto;
+  font-size: 16px;
+}
+
+.app-hover-action {
+  color: #64748b;
+  cursor: pointer;
+  font-size: 18px;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.app-hover-action--danger {
+  color: var(--danger-color, #ef4444);
+}
+
+.app-hover-action--danger:hover {
+  background-color: #fef2f2;
+}
+
+.app-hover-action--success {
+  color: var(--success-color, #10b981);
+}
+
+.app-hover-action--success:hover {
+  background-color: #ecfdf5;
+}
+
+/* 语义值颜色 (Power System Semantics) */
+.value-text {
+  transition: color 0.3s;
+}
+
+.value-on {
+  color: var(--close-color);
+  /* ON/Close/1 = Red */
+}
+
+.value-off {
+  color: var(--open-color);
+  /* OFF/Open/0 = Green */
+}
+
+.value-invalid {
+  color: var(--text-disabled);
+  font-style: italic;
+}
+
+.value-transient {
+  color: var(--warning-color);
+  font-weight: 600;
+}
+
+.value-normal {
+  color: var(--text-primary);
+}
+
+.value-warning {
+  color: var(--warning-color);
+}

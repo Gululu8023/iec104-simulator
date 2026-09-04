@@ -1,0 +1,101 @@
+const fileTransfer = {
+  master: {
+    fileTransfer: {
+      title: '文件传输',
+      tabs: {
+        download: '下载',
+        upload: '上传',
+      },
+      modes: {
+        aria: '文件查询模式',
+        directory: '文件目录',
+        log: '日志查询',
+      },
+      fields: {
+        targetFile: '目标文件',
+        timeRange: '时间范围',
+        file: '文件',
+        size: '大小',
+        time: '时间',
+        downloadParams: '下载参数',
+        selectedFile: '已选文件',
+        savePath: '保存路径',
+        uploadParams: '上传参数',
+        fileType: '文件类型',
+        uploadFile: '上传文件',
+        transferStatus: '传输状态',
+        status: '状态',
+        failureReason: '失败原因',
+      },
+      placeholders: {
+        startTime: '开始时间',
+        endTime: '结束时间',
+        rangeSeparator: '至',
+        noFileSelected: '未选择文件，请在上方文件列表中选择要下载的文件。',
+        downloadPath: '选择本地保存路径',
+        uploadFile: '选择本地上传文件',
+      },
+      actions: {
+        query: '查询',
+        browse: '浏览',
+        close: '关闭',
+        complete: '完成',
+        download: '下载',
+        upload: '上传',
+        cancel: '取消',
+        stop: '停止',
+        getDirectory: '获取目录',
+        refreshDirectory: '重新获取',
+      },
+      helper: {
+        fetched:
+          '已获取远程目录，你可以直接从下方列表选择文件；如果文件有变化，可点击右侧重新获取。',
+        notFetched: '尚未获取远程目录，点击右侧“获取目录”从从站拉取文件列表。',
+      },
+      empty: {
+        noDownloadableFiles: '当前没有可下载文件',
+        directoryNotFetched: '尚未获取远程目录',
+        noMatchedFiles: '没有找到符合条件的文件',
+        queryLogFirst: '先执行一次日志查询',
+        fetchedNoFiles: '从站这次没有返回可下载文件，可以稍后点击“重新获取”再试。',
+        fetchDirectoryHint: '点击右侧“获取目录”从从站拉取文件列表。',
+        refineQuery: '可以调整目标文件类型或时间范围后重新查询。',
+        queryLogHint: '先选择目标文件和时间范围，再点击右侧“查询”查看结果。',
+      },
+      uploadHints: {
+        selectLinkFirst: '请先建立链路并选择从站',
+        busy: '文件传输请求提交中，请稍候',
+        chooseFile: '请先选择上传文件',
+        repeated: '当前文件已上传完成，更换文件后可再次上传',
+        ready: '已满足上传条件，可执行上传',
+        singleSectionLimit: '当前链路使用单节传输，文件上限为 {size}',
+      },
+      fileTypes: {
+        default: '缺省',
+        transparent: '透明文件',
+        disturbance: '故障录波/扰动数据',
+        soe: '顺序事件记录（SOE）',
+        analog: '模拟量序列',
+      },
+      state: {
+        idle: '空闲',
+        running: '传输中',
+        success: '完成',
+        failed: '失败',
+        cancelled: '已取消',
+      },
+      noTimestamp: '无时间戳',
+      fallback: {
+        connection: '连接',
+        slave: '从站',
+        file: '文件',
+      },
+      dialogs: {
+        chooseDownloadPath: '选择下载保存路径',
+        chooseUploadFile: '选择上传文件',
+      },
+    },
+  },
+}
+
+export default fileTransfer

@@ -1,0 +1,156 @@
+/* =========================================
+   Dialog Styles (Shared)
+   ========================================= */
+.app-dialog-shell.el-dialog,
+.app-dialog-shell .el-dialog {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+  overflow: hidden;
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-dialog-shell.el-dialog {
+  margin: 0 auto !important;
+  max-width: calc(100vw - 32px);
+}
+
+/* Dialog consistency contract:
+ * Must stay unified:
+ * - label typography baseline (size/weight/vertical rhythm)
+ * - spacing rhythm and sections
+ * - semantic hint/note states
+ * - hover/focus/disabled interaction styles
+ * Deprecated: local hardcoded .conn-inline-label min-width overrides.
+ */
+.app-dialog-shell {
+  --dialog-content-bottom-gap: 20px;
+  --dialog-label-font-size: 13px;
+  --app-dialog-title-font-size: 18px;
+  --dialog-control-min-height: 34px;
+  --dialog-input-text-align: left;
+  --dialog-number-input-text-align: left;
+  --dialog-control-padding-inline-start: 11px;
+  --dialog-radio-label-gap: 24px;
+  --dialog-radio-option-gap: 12px;
+  --dialog-radio-dot-label-gap: 5px;
+  --dialog-toolbar-btn-height: 28px;
+  --dialog-toolbar-btn-padding-x: 12px;
+}
+
+.app-dialog-grid-full {
+  grid-column: 1 / -1;
+}
+
+.simulation-dialog {
+  --dialog-number-input-text-align: center;
+}
+
+.el-overlay-dialog:has(> .app-dialog-shell) {
+  overflow: hidden;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-dialog-shell.el-dialog .el-dialog__header,
+.app-dialog-shell .el-dialog__header {
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid #e9eff8;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+.app-dialog-shell.el-dialog .el-dialog__headerbtn,
+.app-dialog-shell .el-dialog__headerbtn {
+  top: 16px;
+  right: 16px;
+}
+
+.app-dialog-shell.el-dialog .el-dialog__body,
+.app-dialog-shell .el-dialog__body {
+  padding: 0;
+  margin: 0;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.app-dialog-shell.el-dialog .el-dialog__footer,
+.app-dialog-shell .el-dialog__footer {
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #e9eff8;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+.app-config-dialog.el-dialog,
+.app-config-dialog .el-dialog {
+  height: min(80vh, 760px);
+  max-height: 80vh;
+  max-width: min(980px, calc(100vw - 40px));
+}
+
+.app-config-dialog.el-dialog .el-dialog__body,
+.app-config-dialog .el-dialog__body,
+.app-config-dialog.el-dialog .app-dialog-body,
+.app-config-dialog .app-dialog-body {
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.app-config-dialog .app-object-editor {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.app-config-dialog .app-object-list,
+.app-config-dialog .app-object-detail {
+  min-height: 0;
+  height: 100%;
+}
+
+.app-config-dialog .app-object-list-body,
+.app-config-dialog .app-object-detail-body {
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+
+.app-config-dialog .app-dialog-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  background: #ffffff;
+}
+
+.message-parser-dialog.el-dialog,
+.message-parser-dialog .el-dialog {
+  max-width: min(1040px, calc(100vw - 32px));
+}
+
+.help-doc-dialog.el-dialog,
+.help-doc-dialog .el-dialog {
+  width: min(960px, calc(100vw - 40px));
+  height: min(82vh, 760px);
+  max-height: 82vh;
+  max-width: min(960px, calc(100vw - 40px));
+}
+
+.help-doc-dialog.el-dialog .el-dialog__body,
+.help-doc-dialog .el-dialog__body,
+.help-doc-dialog.el-dialog .app-dialog-body,
+.help-doc-dialog .app-dialog-body {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+}

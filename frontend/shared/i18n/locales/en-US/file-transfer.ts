@@ -1,0 +1,101 @@
+const fileTransfer = {
+  master: {
+    fileTransfer: {
+      title: 'File Transfer',
+      tabs: {
+        download: 'Download',
+        upload: 'Upload',
+      },
+      modes: {
+        aria: 'File query mode',
+        directory: 'File Directory',
+        log: 'Log Query',
+      },
+      fields: {
+        targetFile: 'Target File',
+        timeRange: 'Time Range',
+        file: 'File',
+        size: 'Size',
+        time: 'Time',
+        downloadParams: 'Download Parameters',
+        selectedFile: 'Selected File',
+        savePath: 'Save Path',
+        uploadParams: 'Upload Parameters',
+        fileType: 'File Type',
+        uploadFile: 'Upload File',
+        transferStatus: 'Transfer Status',
+        status: 'Status',
+        failureReason: 'Failure Reason',
+      },
+      placeholders: {
+        startTime: 'Start Time',
+        endTime: 'End Time',
+        rangeSeparator: 'to',
+        noFileSelected: 'No file selected. Choose a file from the list above.',
+        downloadPath: 'Choose local save path',
+        uploadFile: 'Choose local upload file',
+      },
+      actions: {
+        query: 'Query',
+        browse: 'Browse',
+        close: 'Close',
+        complete: 'Complete',
+        download: 'Download',
+        upload: 'Upload',
+        cancel: 'Cancel',
+        stop: 'Stop',
+        getDirectory: 'Get Directory',
+        refreshDirectory: 'Refresh',
+      },
+      helper: {
+        fetched: 'Remote directory fetched. Select a file below, or refresh if files changed.',
+        notFetched:
+          'Remote directory has not been fetched. Click "Get Directory" to pull the file list from the slave.',
+      },
+      empty: {
+        noDownloadableFiles: 'No downloadable files',
+        directoryNotFetched: 'Remote directory not fetched',
+        noMatchedFiles: 'No files match the query',
+        queryLogFirst: 'Run a log query first',
+        fetchedNoFiles: 'The slave returned no downloadable files. Try refreshing later.',
+        fetchDirectoryHint: 'Click "Get Directory" to pull the file list from the slave.',
+        refineQuery: 'Adjust the target file type or time range and query again.',
+        queryLogHint: 'Select a target file and time range, then click "Query".',
+      },
+      uploadHints: {
+        selectLinkFirst: 'Establish a link and select a slave first',
+        busy: 'File transfer request is being submitted. Please wait.',
+        chooseFile: 'Choose an upload file first',
+        repeated: 'This file has already been uploaded. Choose another file to upload again.',
+        ready: 'Upload requirements are satisfied',
+        singleSectionLimit: 'This link uses single-section transfer; the file limit is {size}',
+      },
+      fileTypes: {
+        default: 'Default',
+        transparent: 'Transparent File',
+        disturbance: 'Fault Record / Disturbance Data',
+        soe: 'Sequential Event Record (SOE)',
+        analog: 'Analog Sequence',
+      },
+      state: {
+        idle: 'Idle',
+        running: 'Transferring',
+        success: 'Completed',
+        failed: 'Failed',
+        cancelled: 'Cancelled',
+      },
+      noTimestamp: 'No timestamp',
+      fallback: {
+        connection: 'Connection',
+        slave: 'Slave',
+        file: 'File',
+      },
+      dialogs: {
+        chooseDownloadPath: 'Choose Download Save Path',
+        chooseUploadFile: 'Choose Upload File',
+      },
+    },
+  },
+}
+
+export default fileTransfer

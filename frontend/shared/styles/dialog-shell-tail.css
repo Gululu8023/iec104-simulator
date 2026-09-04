@@ -1,0 +1,203 @@
+.app-dialog-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 24px 16px;
+}
+
+.app-dialog-title {
+  font-size: var(--app-dialog-title-font-size, 18px);
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.app-dialog-subtitle {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #8b95a7;
+  font-family: var(--font-mono);
+}
+
+.app-dialog-subtitle-badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.app-dialog-subtitle-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  box-sizing: border-box;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  font-family: var(--font-mono);
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+  cursor: default;
+  user-select: none;
+}
+
+.app-dialog-subtitle-badge--action {
+  cursor: pointer;
+  user-select: text;
+}
+
+.app-dialog-subtitle-badge--action:hover {
+  background: #eef2f7;
+  border-color: #cbd5e1;
+}
+
+.app-dialog-subtitle-badge--action:active {
+  background: #e2e8f0;
+}
+
+.app-dialog-body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 14px 18px var(--dialog-content-bottom-gap, 20px);
+  background: linear-gradient(180deg, #fcfdff 0%, #ffffff 100%);
+}
+
+.app-dialog-body :where(.conn-section:last-child) {
+  margin-bottom: 0;
+}
+
+.message-inspector-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px 16px;
+  border-bottom: 1px solid #ebeef5;
+}
+
+.message-inspector-title {
+  font-size: var(--app-dialog-title-font-size, 18px);
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.message-inspector-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-right: 24px;
+}
+
+.message-inspector-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 14px;
+}
+
+.message-inspector-nav-btn:hover:not(:disabled) {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.message-inspector-nav-btn:disabled {
+  color: #d1d5db;
+  cursor: not-allowed;
+}
+
+.message-inspector-nav-info {
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 500;
+  min-width: 40px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.message-inspector-scroll .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+
+.message-inspector-content {
+  padding: 24px 0 8px;
+}
+
+.message-inspector-content .conn-section {
+  margin-bottom: 16px;
+}
+
+.message-inspector-content .conn-section:last-child {
+  margin-bottom: 0;
+}
+
+.message-inspector-dialog.el-dialog .el-dialog__header,
+.message-inspector-dialog .el-dialog__header {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.message-inspector-dialog.el-dialog .el-dialog__body,
+.message-inspector-dialog .el-dialog__body {
+  padding: 0 24px 24px !important;
+  overflow: hidden !important;
+}
+
+.app-dialog-scroll-shadow {
+  background:
+    linear-gradient(#ffffff 24px, rgba(255, 255, 255, 0)) top / 100% 24px no-repeat local,
+    linear-gradient(rgba(255, 255, 255, 0), #ffffff 24px) bottom / 100% 24px no-repeat local,
+    radial-gradient(farthest-side at 50% 0, rgba(15, 23, 42, 0.14), rgba(15, 23, 42, 0)) top / 100%
+      12px no-repeat scroll,
+    radial-gradient(farthest-side at 50% 100%, rgba(15, 23, 42, 0.14), rgba(15, 23, 42, 0)) bottom /
+      100% 12px no-repeat scroll;
+}
+
+.app-dialog-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px 24px;
+}
+
+.app-dialog-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-dialog-actions .el-button {
+  min-width: 92px;
+}
+
+.app-dialog-shell .el-button--primary {
+  background-color: var(--primary-color, #2563eb) !important;
+  border-color: var(--primary-color, #2563eb) !important;
+}
+
+.app-dialog-shell .el-button--primary:hover {
+  background-color: var(--primary-color-hover, #1d4ed8) !important;
+  border-color: var(--primary-color-hover, #1d4ed8) !important;
+}

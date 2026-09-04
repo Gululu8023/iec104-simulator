@@ -1,0 +1,82 @@
+# ===============================================
+#                 Rust代码格式化配置
+# ===============================================
+
+edition = "2024"
+style_edition = "2024"
+
+# 开启 unstable 配置项
+unstable_features = true
+
+# 一行最大宽度
+max_width = 120
+
+# 缩进空格数
+tab_spaces = 4
+
+# 换行风格
+newline_style = "Unix"
+
+# 允许的最少空行数
+# 0 表示不强行保留多余空行
+blank_lines_lower_bound = 0
+
+# 允许的最多空行数
+# 1 表示代码块之间最多保留 1 个空行
+blank_lines_upper_bound = 1
+
+# 花括号风格
+# PreferSameLine：尽量和语句头放同一行，看起来更紧凑
+brace_style = "PreferSameLine"
+
+# where 子句尽量单行
+# 适合简单泛型约束；复杂约束时有时会显得比较挤
+where_single_line = true
+
+# 解构时把 .. 压缩到后缀位置
+# 偏代码整齐风格
+condense_wildcard_suffixes = true
+
+# 多个 derive 不合并到一行
+merge_derives = false
+
+# 导入粒度按 crate 维度整理
+# 会比默认更主动地合并/整理 use
+imports_granularity = "Crate"
+
+# 导入分组
+# 标准库 / 第三方库 / 本地 crate 分开，看起来更清晰
+group_imports = "StdExternalCrate"
+
+# 重排 use 导入
+reorder_imports = true
+
+# 重排模块声明
+reorder_modules = true
+
+# 在一些带分隔符的表达式中，允许更自然的溢出换行
+overflow_delimited_expr = true
+
+# 自动折行注释
+# 长注释不会一直拖成一整行
+wrap_comments = true
+
+# 注释宽度
+# 只有在 wrap_comments = true 时才有意义
+comment_width = 100
+
+# 格式化文档注释里的 Rust 代码块
+# 比如 /// ```rust ... ``` 里的示例代码也会一起格式化
+format_code_in_doc_comments = true
+
+# 统一文档注释风格
+# 会更偏向 /// / //! 风格
+normalize_doc_attributes = true
+
+# 宽度启发式
+# 尽量减少不必要换行，整体更“横向展开”
+use_small_heuristics = "Max"
+
+# 可选：锁定 rustfmt 版本
+# 团队/CI 想完全一致时再开
+# required_version = "1.8.0"

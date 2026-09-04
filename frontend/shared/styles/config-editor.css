@@ -1,0 +1,456 @@
+/* =========================================
+   Config Editor Dialog (Master/Slave Shared)
+   ========================================= */
+.app-config-editor-dialog .app-dialog-header {
+  padding: 16px 20px 14px;
+}
+
+.app-config-editor-dialog .app-dialog-body,
+.app-config-editor-body {
+  overflow: hidden;
+  padding: 10px 14px var(--dialog-content-bottom-gap, 20px);
+  display: flex;
+  flex-direction: column;
+}
+
+.app-config-editor-dialog .app-section {
+  margin-bottom: 12px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.app-config-editor-dialog .app-section:last-child {
+  margin-bottom: 0;
+}
+
+.app-config-editor-body {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
+.app-config-editor-tabs {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+  height: 100%;
+}
+
+.app-config-editor-tabs .el-tabs__header {
+  margin-bottom: 8px;
+  margin-top: 0;
+  flex-shrink: 0;
+  order: 0 !important;
+}
+
+.app-config-editor-tabs .el-tabs__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  order: 1 !important;
+}
+
+.app-config-editor-tabs .el-tab-pane {
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-config-pane-scroll {
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  padding-right: 0;
+}
+
+.app-config-base-scroll {
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.app-config-object-pane {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+.app-config-object-section {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.app-config-object-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e9eff8;
+}
+
+.app-config-object-toolbar-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.app-config-object-toolbar-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2f435d;
+}
+
+.app-config-object-editor {
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  grid-template-columns: 312px minmax(0, 1fr);
+  gap: 24px;
+  overflow: hidden;
+}
+
+.app-config-object-editor :is(.app-object-list, .app-object-detail) {
+  height: 100%;
+  min-height: 0;
+}
+
+.app-config-object-editor .app-object-list-header {
+  padding: 8px 10px;
+}
+
+.app-config-object-editor .app-object-list-actions {
+  gap: 6px;
+}
+
+.app-config-object-editor .app-object-list-actions .el-button {
+  height: 30px;
+  padding: 0 10px;
+}
+
+.app-config-object-editor .app-object-list-actions .el-button + .el-button {
+  margin-left: 0;
+}
+
+.app-config-object-list-scroll {
+  flex: 1;
+  height: 0;
+  min-height: 0;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  scrollbar-gutter: auto;
+  padding: 8px;
+}
+
+.app-config-object-editor .app-object-item {
+  min-height: 70px;
+  padding: 8px 32px 8px 12px;
+}
+
+.app-config-object-editor .app-object-item + .app-object-item {
+  margin-top: 10px;
+}
+
+.app-config-object-editor .app-object-item-actions {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(2px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.app-config-object-editor .app-object-item:hover .app-object-item-actions,
+.app-config-object-editor .app-object-item.active .app-object-item-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.app-config-object-editor .object-inline-delete-btn {
+  min-width: auto;
+}
+
+.app-config-object-editor .app-object-item-summary {
+  margin-top: 4px;
+}
+
+.app-config-object-detail-scroll {
+  height: 0;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: auto;
+  padding: 2px 0 0;
+  background: transparent;
+}
+
+.app-config-object-detail.app-object-detail {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 2px 2px 0 6px;
+  border-radius: 0;
+}
+
+.app-config-object-detail .app-object-detail-header {
+  margin-bottom: 6px;
+}
+
+.app-config-editor-dialog .app-dialog-footer {
+  padding: 10px 14px;
+}
+
+.app-config-editor-dialog .app-dialog-actions {
+  gap: 8px;
+}
+
+.app-config-editor-dialog .app-dialog-footer .el-button {
+  min-width: 84px;
+  height: 34px;
+}
+
+/* =========================================
+   Merged Station Config Dialog (Master/Slave Shared)
+   ========================================= */
+.app-config-editor-dialog .slave-edit-merged-editor {
+  height: 100%;
+  min-height: 0;
+}
+
+.app-config-editor-dialog .slave-edit-object-list {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-config-editor-dialog .slave-edit-list-header {
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  padding: 8px 10px !important;
+  border-bottom: 1px solid #e9eff8;
+}
+
+.app-config-editor-dialog .slave-edit-list-actions {
+  flex-direction: row !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  width: auto !important;
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+.app-config-editor-dialog .slave-edit-list-count {
+  font-weight: 400;
+  color: #94a3b8;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.app-config-editor-dialog .slave-edit-list-divider {
+  height: 1px;
+  background: #ebeef5;
+  margin: 8px 8px 12px;
+  flex-shrink: 0;
+}
+
+.app-config-editor-dialog .slave-edit-object-scroll {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  scrollbar-gutter: auto;
+}
+
+.app-config-editor-dialog .slave-edit-detail-scroll {
+  padding-top: 4px;
+}
+
+.app-config-editor-dialog .slave-edit-object-scroll,
+.app-config-editor-dialog .app-config-object-detail-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--app-scrollbar-thumb) var(--app-scrollbar-track);
+}
+
+.app-config-editor-dialog .slave-edit-object-scroll::-webkit-scrollbar,
+.app-config-editor-dialog .app-config-object-detail-scroll::-webkit-scrollbar {
+  width: var(--app-scrollbar-size);
+}
+
+.app-config-editor-dialog .slave-edit-object-scroll::-webkit-scrollbar-thumb,
+.app-config-editor-dialog .app-config-object-detail-scroll::-webkit-scrollbar-thumb {
+  background: var(--app-scrollbar-thumb);
+  border-radius: var(--app-scrollbar-radius);
+}
+
+.app-config-editor-dialog .slave-edit-object-scroll::-webkit-scrollbar-thumb:hover,
+.app-config-editor-dialog .app-config-object-detail-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--app-scrollbar-thumb-hover);
+}
+
+.app-config-editor-dialog .slave-edit-object-scroll::-webkit-scrollbar-track,
+.app-config-editor-dialog .app-config-object-detail-scroll::-webkit-scrollbar-track {
+  background: var(--app-scrollbar-track);
+  border-radius: var(--app-scrollbar-radius);
+}
+
+.app-config-editor-dialog .slave-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 12px;
+  margin: 0 8px;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.app-config-editor-dialog .slave-list-item + .slave-list-item {
+  margin-top: 4px;
+}
+
+.app-config-editor-dialog .slave-list-item:hover {
+  background: #f5f7fa;
+}
+
+.app-config-editor-dialog .slave-list-item.active {
+  background: var(--selection-highlight-bg, #eff6ff);
+  box-shadow: inset 3px 0 0 var(--primary-color, #2563eb);
+}
+
+.app-config-editor-dialog .slave-list-item-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.app-config-editor-dialog .slave-list-item-icon--setting {
+  color: #606266;
+}
+
+.app-config-editor-dialog .slave-list-item-icon--object {
+  color: #409eff;
+}
+
+.app-config-editor-dialog .slave-list-item.active .slave-list-item-icon--setting {
+  color: #409eff;
+}
+
+.app-config-editor-dialog .slave-list-item-name {
+  flex: 1;
+  font-size: 14px;
+  color: #303133;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.app-config-editor-dialog .slave-list-item-badge {
+  font-family: var(--font-mono, 'SF Mono', 'Cascadia Code', 'Consolas', monospace);
+  font-size: 11px;
+  line-height: 1;
+  color: #909399;
+  background: #f4f4f5;
+  border-radius: 999px;
+  padding: 3px 7px;
+  flex-shrink: 0;
+}
+
+.app-config-editor-dialog .slave-list-item-delete {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  flex-shrink: 0;
+}
+
+.app-config-editor-dialog .slave-list-item:hover .slave-list-item-delete,
+.app-config-editor-dialog .slave-list-item.active .slave-list-item-delete {
+  opacity: 1;
+}
+
+.app-config-editor-dialog .slave-detail-title-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 0 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ebeef5;
+}
+
+.app-config-editor-dialog .slave-detail-title-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  flex: 1;
+}
+
+.app-config-editor-dialog .slave-base-form-vertical .el-form-item__label {
+  padding-bottom: 4px;
+  line-height: 1.2;
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* =========================================
+   Master Config Dialog (Master-only extras)
+   ========================================= */
+.app-master-config-dialog .master-base-form .el-form-item {
+  margin-bottom: 8px;
+}
+
+.app-master-config-dialog .master-base-subsection {
+  margin-top: 14px;
+}
+
+.app-master-config-dialog .master-object-action-btn .el-icon {
+  margin-right: 4px;
+}
+
+.app-master-config-dialog .master-object-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 10px;
+}
+
+.app-master-config-dialog .master-object-detail-grid .el-form-item {
+  margin-bottom: 0;
+}
+
+.app-master-config-dialog .master-object-detail-form .el-form-item__label {
+  padding-bottom: 4px;
+  line-height: 1.2;
+  font-size: 12px;
+  color: #64748b;
+}

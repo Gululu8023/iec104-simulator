@@ -1,0 +1,49 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "iec104-simulator-slave",
+  "mainBinaryName": "iec104-simulator-slave",
+  "version": "1.0.0",
+  "identifier": "com.iec104-simulator.slave",
+  "build": {
+    "beforeDevCommand": "pnpm --dir ../.. dev:slave",
+    "devUrl": "http://localhost:1422",
+    "beforeBuildCommand": "pnpm --dir ../.. build:slave",
+    "frontendDist": "../../../dist/slave"
+  },
+  "app": {
+    "windows": [{
+      "title": "IEC104从站模拟器",
+      "width": 1400,
+      "height": 900,
+      "minWidth": 1200,
+      "minHeight": 800,
+      "resizable": true,
+      "fullscreen": false,
+      "maximizable": true,
+      "minimizable": true,
+      "center": true
+    }],
+    "security": {
+      "csp": null,
+      "capabilities": ["default"]
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "licenseFile": "../../../LICENSE",
+    "icon": [
+      "../../icons/slave/32x32.png",
+      "../../icons/slave/128x128.png",
+      "../../icons/slave/128x128@2x.png",
+      "../../icons/slave/icon.icns",
+      "../../icons/slave/icon.ico"
+    ],
+    "windows": {
+      "nsis": {
+        "languages": ["SimpChinese", "English"],
+        "displayLanguageSelector": true
+      }
+    }
+  }
+}

@@ -1,0 +1,422 @@
+/* ---- Body: no scroll on content ---- */
+.ft-body {
+  overflow: hidden !important;
+  padding: 4px 24px 20px !important;
+}
+
+/* ---- Tabs ---- */
+.ft-tabs :deep(.el-tabs__header) {
+  margin-bottom: 18px;
+}
+.ft-tabs :deep(.el-tabs__nav-wrap::after) {
+  height: 1px;
+}
+.ft-tabs :deep(.el-tabs__item) {
+  font-size: 17px;
+  font-weight: 700;
+  padding: 0 12px;
+  height: 42px;
+  line-height: 42px;
+}
+
+.ft-mode-tabs {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 12px;
+  min-height: 24px;
+}
+
+.ft-mode-tab {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s ease-out;
+}
+
+.ft-mode-tab.is-active {
+  color: var(--primary-color, #2563eb);
+}
+
+.ft-mode-tab:not(.is-active):hover {
+  color: #475569;
+}
+
+.ft-query-grid {
+  display: grid;
+  grid-template-columns:
+    max-content minmax(160px, 0.8fr)
+    max-content minmax(280px, 1.2fr)
+    auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ft-query-field {
+  min-width: 0;
+}
+
+.ft-query-field--range :deep(.el-date-editor) {
+  width: 100%;
+}
+
+.ft-query-field--range :deep(.ft-query-date-range.el-input__wrapper) {
+  height: var(--dialog-control-min-height, 34px) !important;
+  min-height: var(--dialog-control-min-height, 34px) !important;
+  max-height: var(--dialog-control-min-height, 34px) !important;
+  box-sizing: border-box !important;
+}
+
+.ft-query-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: var(--dialog-control-min-height, 34px);
+}
+
+.ft-directory-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: var(--dialog-control-min-height, 34px);
+  margin-bottom: 8px;
+}
+
+.ft-directory-toolbar__hint {
+  min-width: 0;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.ft-directory-toolbar__action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.ft-table-wrap {
+  border-radius: 10px;
+}
+
+.ft-selected-file-summary {
+  align-items: center;
+  min-width: 0;
+}
+
+.ft-selected-file-summary__label {
+  align-self: center;
+}
+
+.ft-selected-file-summary__content {
+  min-width: 0;
+  flex: 1;
+}
+
+.ft-selected-file-summary__inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ft-selected-file-summary__name {
+  color: #1f2937;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ft-selected-file-summary__meta,
+.ft-selected-file-summary__placeholder {
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.ft-selected-file-summary__meta {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ft-file-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.ft-file-title {
+  color: #1f2937;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ft-empty-state {
+  min-height: 128px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #94a3b8;
+}
+
+.ft-empty-state__title {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ft-empty-state__hint {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.ft-path-field {
+  min-width: 0;
+}
+
+.ft-requirement-hint {
+  padding: 10px 12px;
+  border: 1px dashed #fdba74;
+  border-radius: 8px;
+  background: #fff7ed;
+  color: #c2410c;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.ft-requirement-hint.is-ready {
+  border-color: #86efac;
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+:deep(.ft-query-date-range .el-range-input) {
+  font-size: 13px;
+  color: #475569;
+}
+
+:deep(.ft-query-date-range .el-range-input::placeholder) {
+  color: #9ca3af;
+}
+
+:deep(.ft-query-date-range .el-range__icon),
+:deep(.ft-query-date-range .el-range__close-icon),
+:deep(.ft-query-date-range .el-range-separator) {
+  color: #94a3b8;
+}
+
+/* ---- Lightweight selected file info ---- */
+.ft-summary-inline {
+  color: #374151;
+  font-size: 12px;
+  font-family: var(--font-mono, monospace);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ft-summary-sep {
+  color: #d1d5db;
+  margin: 0 4px;
+}
+
+.ft-hint-text {
+  color: #9ca3af;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* ---- Status panel ---- */
+.ft-status-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ft-status-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 2px;
+}
+
+.ft-status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.ft-status-row--compact {
+  gap: 6px;
+}
+
+.ft-status-row--compact .ft-status-label {
+  min-width: 34px;
+}
+
+.ft-status-row--error {
+  color: #b91c1c;
+}
+
+.ft-status-label {
+  color: #6b7280;
+  min-width: 48px;
+  flex-shrink: 0;
+}
+
+.ft-status-mono {
+  color: #374151;
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+}
+
+.ft-status-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+}
+.ft-status-badge--idle {
+  background: #f8fafc;
+  color: #94a3b8;
+}
+.ft-status-badge--running {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.ft-status-badge--success {
+  background: #dcfce7;
+  color: #15803d;
+}
+.ft-status-badge--failed {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.ft-status-badge--cancelled {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* ---- Progress ---- */
+.ft-status-progress {
+  width: 100%;
+  padding: 0 2px;
+}
+.ft-status-progress :deep(.el-progress) {
+  width: 100%;
+}
+.ft-status-progress :deep(.el-progress-bar) {
+  margin-right: 0;
+  padding-right: 0;
+}
+.ft-status-progress :deep(.el-progress-bar__outer) {
+  background: #eef3f9;
+  border-radius: 999px;
+}
+.ft-status-progress :deep(.el-progress-bar__inner) {
+  border-radius: 999px;
+  background: linear-gradient(90deg, #a7c5ff 0%, #8eb6f7 100%);
+}
+.ft-status-progress :deep(.el-progress-bar__inner.is-success) {
+  background: linear-gradient(90deg, #8dd9a6 0%, #74c78f 100%);
+}
+.ft-status-progress :deep(.el-progress-bar__inner.is-exception) {
+  background: linear-gradient(90deg, #f5a3a3 0%, #eb8f8f 100%);
+}
+.ft-status-bytes {
+  font-size: 12px;
+  color: #6b7280;
+  font-family: var(--font-mono, monospace);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+:deep(.ft-directory-table .el-table__body tr.current-row > td.el-table__cell) {
+  background: #eff6ff !important;
+}
+
+:deep(.ft-directory-table .el-table__body tr.current-row > td.el-table__cell:first-child) {
+  box-shadow: inset 2px 0 0 var(--primary-color, #2563eb);
+}
+
+:deep(.ft-directory-table .el-table__body tr.current-row .ft-file-title) {
+  font-weight: 700;
+}
+
+:deep(.ft-directory-table .el-table__body tr:hover > td.el-table__cell) {
+  background: #f8fbff;
+}
+
+:deep(.ft-directory-table .el-table__header-wrapper th.el-table__cell) {
+  background: #f8fafc;
+}
+
+:deep(.ft-directory-table .el-table__header-wrapper th.el-table__cell .cell) {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+:deep(.ft-directory-table .el-table__header-wrapper th.el-table__cell.is-right .cell) {
+  justify-content: flex-end;
+}
+
+:deep(.ft-directory-table .el-table__header-wrapper th.el-table__cell .caret-wrapper) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:deep(.ft-directory-table .el-scrollbar__wrap) {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scrollbar-gutter: auto;
+}
+
+@media (max-width: 960px) {
+  .ft-query-grid,
+  .ft-query-grid--directory {
+    grid-template-columns: 1fr;
+  }
+
+  .ft-mode-tabs {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .ft-query-action {
+    justify-content: flex-start;
+  }
+
+  .ft-directory-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ft-directory-toolbar__action {
+    justify-content: flex-start;
+  }
+}

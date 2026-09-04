@@ -1,0 +1,49 @@
+{
+  "name": "iec104-simulator",
+  "private": true,
+  "version": "1.0.0",
+  "author": "Gululu8023",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gululu8023/iec104-simulator.git"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "type": "module",
+  "scripts": {
+    "dev:master": "vite --config vite.master.config.ts",
+    "dev:slave": "vite --config vite.slave.config.ts",
+    "build:master": "vue-tsc -p frontend/master/tsconfig.json --noEmit && vite build --config vite.master.config.ts",
+    "build:slave": "vue-tsc -p frontend/slave/tsconfig.json --noEmit && vite build --config vite.slave.config.ts",
+    "preview:master": "vite preview --config vite.master.config.ts",
+    "preview:slave": "vite preview --config vite.slave.config.ts",
+    "tauri:dev:master": "cd src-tauri/apps/master && tauri dev",
+    "tauri:dev:slave": "cd src-tauri/apps/slave && tauri dev",
+    "tauri:build:master": "cd src-tauri/apps/master && tauri build",
+    "tauri:build:slave": "cd src-tauri/apps/slave && tauri build",
+    "verify:i18n": "node scripts/verify-i18n.mjs",
+    "verify:release": "node scripts/verify-release.mjs",
+    "format:frontend": "prettier --write frontend package.json tsconfig.json tsconfig.base.json vite.master.config.ts vite.slave.config.ts vite.shared.config.ts prettier.config.cjs",
+    "format:rust": "cargo +nightly fmt --all --manifest-path src-tauri/Cargo.toml"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-dialog": "^2",
+    "element-plus": "^2.10.2",
+    "marked": "^17.0.4",
+    "vue": "^3.4.0",
+    "vue-i18n": "^11.4.6"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vue/tsconfig": "^0.7.0",
+    "prettier": "3.8.1",
+    "typescript": "~5.9.3",
+    "unplugin-auto-import": "^19.3.0",
+    "unplugin-vue-components": "^28.8.0",
+    "vite": "^6.0.3",
+    "vue-tsc": "^3.2.4"
+  }
+}

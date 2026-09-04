@@ -1,0 +1,96 @@
+/* Shared application shell layout for master/slave station pages. */
+
+.tree-shell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-body);
+  margin: 0;
+  padding: 0;
+}
+
+.tree-shell__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background-color: var(--bg-body);
+}
+
+.tree-shell__panels {
+  display: flex;
+  gap: 0;
+  padding: 0;
+  min-height: 0;
+  flex-shrink: 0;
+}
+
+.tree-shell__sidebar {
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-panel);
+}
+
+.tree-shell__tree {
+  flex: 1;
+  min-height: 0;
+}
+
+.tree-shell__main {
+  flex: 1;
+  min-width: 400px;
+  overflow: hidden;
+  background-color: var(--bg-body);
+}
+
+.tree-shell__side-resize {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  cursor: ew-resize;
+  background: transparent;
+  z-index: 10;
+}
+
+.tree-shell__side-resize::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -6px;
+  right: 0;
+  cursor: ew-resize;
+  z-index: 20;
+}
+
+.tree-shell__side-resize:hover {
+  background: var(--primary-color);
+}
+
+.tree-shell__bottom-resize {
+  height: 1px;
+  cursor: ns-resize;
+  background: transparent;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.tree-shell__bottom-resize::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: 0;
+  right: 0;
+  cursor: ns-resize;
+  z-index: 20;
+}
+
+.tree-shell__bottom-resize:hover {
+  background: var(--primary-color);
+}

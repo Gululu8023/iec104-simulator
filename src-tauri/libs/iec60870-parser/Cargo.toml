@@ -1,0 +1,31 @@
+[package]
+name = "iec60870-parser"
+version = "0.1.0"
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "IEC 60870-5-104 协议解析库"
+publish = false
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+bitflags.workspace = true
+bytes.workspace = true
+memchr = { workspace = true, optional = true }
+pcap-parser = { workspace = true, optional = true }
+serde = { workspace = true, optional = true }
+smallvec.workspace = true
+thiserror.workspace = true
+
+[features]
+default = []
+serde = ["dep:serde"]
+simd = ["dep:memchr"]
+link-manager = []
+pcap = ["dep:pcap-parser"]
+
+[[bin]]
+name = "pcap_dump"
+path = "src/bin/pcap_dump.rs"
+required-features = ["pcap"]

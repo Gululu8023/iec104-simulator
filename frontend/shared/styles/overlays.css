@@ -1,0 +1,240 @@
+/* ElMessageBox 确认弹窗主按钮颜色统一 */
+.el-message-box .el-button--primary {
+  background-color: var(--primary-color, #2563eb) !important;
+  border-color: var(--primary-color, #2563eb) !important;
+}
+
+.el-message-box .el-button--primary:hover {
+  background-color: var(--primary-color-hover, #1d4ed8) !important;
+  border-color: var(--primary-color-hover, #1d4ed8) !important;
+}
+
+.app-confirm-box {
+  width: min(460px, calc(100vw - 32px)) !important;
+  padding: 0 0 20px !important;
+  border: 1px solid rgba(148, 163, 184, 0.18) !important;
+  border-radius: 20px !important;
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 132px) !important;
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.18),
+    0 10px 28px rgba(15, 23, 42, 0.12) !important;
+  overflow: hidden;
+}
+
+.app-confirm-box .el-message-box__header {
+  padding: 24px 24px 0 !important;
+}
+
+.app-confirm-box .el-message-box__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.app-confirm-box .el-message-box__status {
+  position: static !important;
+  transform: none !important;
+  margin: 0 !important;
+  font-size: 22px !important;
+}
+
+.app-confirm-box .el-message-box__headerbtn {
+  top: 16px !important;
+  right: 16px !important;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  color: #94a3b8;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.app-confirm-box .el-message-box__headerbtn:hover {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.app-confirm-box .el-message-box__headerbtn .el-message-box__close {
+  font-size: 16px;
+}
+
+.app-confirm-box .el-message-box__content {
+  padding: 14px 24px 0 !important;
+}
+
+.app-confirm-box .el-message-box__message p {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.app-confirm-box .el-message-box__btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 20px 24px 0 !important;
+}
+
+.app-confirm-box .el-message-box__btns .el-button {
+  min-width: 108px;
+  height: 40px;
+  margin-left: 0 !important;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.app-confirm-box .el-message-box__btns .el-button--default {
+  border-color: #d8e0ec;
+  color: #334155;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.app-confirm-box .el-message-box__btns .el-button--default:hover {
+  border-color: #b9c5d8;
+  color: #0f172a;
+  background: #f8fafc;
+}
+
+.app-confirm-box .el-message-box__btns .el-button--primary {
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.22);
+}
+
+.app-confirm-box--unsaved {
+  background: linear-gradient(180deg, #fffbf2 0%, #ffffff 132px) !important;
+}
+
+.app-confirm-box--unsaved .el-message-box__status {
+  color: #d97706 !important;
+}
+
+.app-btn-secondary {
+  border-color: #d1d5db !important;
+  color: #374151 !important;
+  background: #ffffff !important;
+}
+
+.app-btn-secondary:hover {
+  border-color: #9ca3af !important;
+  color: #111827 !important;
+  background: #f9fafb !important;
+}
+
+.app-dialog-link-action {
+  color: var(--primary-color);
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  background: transparent;
+  padding: 0;
+  line-height: 1.4;
+  transition: opacity 0.2s ease;
+}
+
+.app-dialog-link-action:hover {
+  opacity: 0.8;
+}
+
+.app-primary-switch.is-checked .el-switch__core {
+  background-color: var(--primary-color, #2563eb) !important;
+  border-color: var(--primary-color, #2563eb) !important;
+}
+
+.app-form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 14px;
+}
+
+.reconnect-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 24px;
+}
+
+.reconnect-grid .el-form-item {
+  margin-bottom: 0;
+}
+
+.reconnect-input {
+  width: 100%;
+}
+
+.app-form-grid-2.single {
+  grid-template-columns: 1fr;
+}
+
+.app-form-grid-2 .el-form-item {
+  margin-bottom: 8px;
+}
+
+.app-form-label {
+  width: 96px;
+  text-align: right;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.app-section {
+  border: 1px solid #e6edf8;
+  border-radius: 12px;
+  background: #f9fbfe;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.app-section:last-child {
+  margin-bottom: 0;
+}
+
+.app-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ebf1fa;
+}
+
+.app-tag-mono {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: #475569;
+  background: #f1f5f9;
+  border-radius: 7px;
+  padding: 4px 7px;
+}
+
+.app-danger-outline {
+  color: #dc2626 !important;
+  border-color: #fca5a5 !important;
+  background: #ffffff !important;
+}
+
+.app-danger-outline:hover {
+  background: #fef2f2 !important;
+  border-color: #f87171 !important;
+  color: #b91c1c !important;
+}
+
+.app-collapse-advanced .el-collapse-item__header {
+  font-weight: 600;
+  color: #334155;
+}
+
+.app-collapse-advanced .el-collapse-item__content {
+  padding-bottom: 2px;
+}
