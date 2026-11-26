@@ -2,7 +2,13 @@
 
 本项目采用面向用户的变更记录格式。应用产品版本与 `iec60870-parser` 组件版本独立管理。
 
-## [Unreleased] - v1.0.0
+## [Unreleased] - v1.0.1
+
+### Fixed
+
+- 修复主站和从站导入点表时，预览表格在滚动过程中高度逐渐缩小的问题（[#3](https://github.com/Gululu8023/iec104-simulator/issues/3)）。
+
+## [1.0.0]
 
 ### Added
 
@@ -59,6 +65,7 @@
 - 建立公开发布仓库及 Master/Slave Windows 安装包发布结构。
 - 提供基础连接、监听、点表导入、报文查看与协议联调能力。
 
-[Unreleased]: https://github.com/Gululu8023/iec104-simulator/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/Gululu8023/iec104-simulator/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/Gululu8023/iec104-simulator/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/Gululu8023/iec104-simulator/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Gululu8023/iec104-simulator/releases/tag/v0.1.0

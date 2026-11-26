@@ -3,7 +3,7 @@
 .app-point-table-import-dialog.el-dialog,
 .app-point-table-import-dialog .el-dialog {
   max-width: min(820px, calc(100vw - 32px));
-  max-height: min(84vh, 860px);
+  max-height: min(84vh, 860px, calc(100vh - 32px));
 }
 
 .pti-dialog-body {
@@ -178,23 +178,23 @@
 }
 
 .pti-preview-section {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  /* Let the dialog constrain the table without measuring the height the table itself creates. */
+  grid-template-rows: auto auto minmax(80px, 1fr);
+  min-height: min-content;
   min-width: 0;
 }
 
 .pti-preview-table-wrap {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
   min-width: 0;
   max-width: 100%;
-  overflow: auto;
-  scrollbar-gutter: auto;
-}
-
-.pti-preview-table-wrap {
-  flex: 1 1 auto;
+  overflow: hidden;
 }
 
 .pti-preview-table {
+  min-height: 0;
   min-width: 0;
 }
 
@@ -210,6 +210,10 @@
 
 .pti-preview-table .el-table__body-wrapper {
   min-height: 0;
+}
+
+.pti-preview-table .el-table__body-wrapper > .el-scrollbar {
+  height: 100%;
 }
 
 .pti-point-name-cell {

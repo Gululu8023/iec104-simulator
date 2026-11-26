@@ -4,7 +4,7 @@ members = ["apps/master", "apps/slave", "libs/backend", "libs/iec60870-parser"]
 default-members = ["apps/master", "apps/slave"]
 
 [workspace.package]
-version = "1.0.0"
+version = "1.0.1"
 authors = ["Gululu8023 <33918551+Gululu8023@users.noreply.github.com>"]
 edition = "2024"
 rust-version = "1.88"

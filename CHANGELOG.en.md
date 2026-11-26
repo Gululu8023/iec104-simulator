@@ -2,7 +2,13 @@
 
 This project keeps user-facing release notes. The application product version and the `iec60870-parser` component version are managed independently.
 
-## [Unreleased] - v1.0.0
+## [Unreleased] - v1.0.1
+
+### Fixed
+
+- Fix the point-table import preview table gradually shrinking in height while scrolling in both Master and Slave ([#3](https://github.com/Gululu8023/iec104-simulator/issues/3)).
+
+## [1.0.0]
 
 ### Added
 
@@ -59,6 +65,7 @@ This project keeps user-facing release notes. The application product version an
 - Establish the public release repository and Windows Master/Slave package structure.
 - Provide initial connection, listener, point-table import, frame inspection, and protocol integration features.
 
-[Unreleased]: https://github.com/Gululu8023/iec104-simulator/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/Gululu8023/iec104-simulator/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/Gululu8023/iec104-simulator/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/Gululu8023/iec104-simulator/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Gululu8023/iec104-simulator/releases/tag/v0.1.0

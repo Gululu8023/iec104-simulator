@@ -1591,7 +1591,7 @@ dependencies = [
 
 [[package]]
 name = "iec104-simulator-backend"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "base64 0.22.1",
  "bytes",
@@ -1615,7 +1615,7 @@ dependencies = [
 
 [[package]]
 name = "iec104-simulator-master"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "iec104-simulator-backend",
  "tauri",
@@ -1626,7 +1626,7 @@ dependencies = [
 
 [[package]]
 name = "iec104-simulator-slave"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "iec104-simulator-backend",
  "tauri",

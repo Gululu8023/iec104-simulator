@@ -26,7 +26,7 @@
       </div>
     </template>
 
-    <div ref="dialogBodyRef" class="app-dialog-body app-dialog-scroll-shadow pti-dialog-body">
+    <div class="app-dialog-body app-dialog-scroll-shadow pti-dialog-body">
       <section class="conn-section">
         <div class="conn-section-title">{{ t('pointTableImport.sourceTitle') }}</div>
         <div class="app-dialog-field-grid--2 app-filled-form pti-source-form">
@@ -157,14 +157,14 @@
           {{ t('pointTableImport.previewLimitHint') }}
         </div>
 
-        <div ref="previewTableWrapRef" class="app-dialog-table-wrap pti-preview-table-wrap">
+        <div class="app-dialog-table-wrap pti-preview-table-wrap">
           <el-table
             ref="previewTableRef"
             :data="previewTableRows"
             :row-key="getPreviewRowKey"
             :row-class-name="resolvePreviewRowClassName"
             :row-style="resolvePreviewRowStyle"
-            :height="previewTableHeight"
+            :max-height="PREVIEW_TABLE_MAX_HEIGHT"
             :fit="false"
             size="small"
             stripe
@@ -303,7 +303,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { CircleCloseFilled, Loading, WarningFilled } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { open } from '@tauri-apps/plugin-dialog'
@@ -365,15 +365,11 @@ const previewing = ref(false)
 const applying = ref(false)
 const previewFailureMessage = ref('')
 const preview = ref<Awaited<ReturnType<typeof previewPointTableImport>> | null>(null)
-const dialogBodyRef = ref<HTMLElement | null>(null)
-const previewTableWrapRef = ref<HTMLElement | null>(null)
 const previewTableRef = ref<any>(null)
 const previewSortOrder = ref<'ascending' | 'descending' | null>(null)
 const lastAppliedResult = ref<PointTableImportApplyResult | null>(null)
 const previewRequestId = ref(0)
 const PREVIEW_TABLE_MAX_HEIGHT = 280
-const previewTableHeight = ref(PREVIEW_TABLE_MAX_HEIGHT)
-let previewLayoutObserver: ResizeObserver | null = null
 
 const dialogTitle = computed(() => props.title || t('pointTableImport.defaultTitle'))
 const targetOptions = computed(() => props.targets ?? [])
@@ -548,49 +544,6 @@ const activeRiskSeverity = computed<'error' | 'warning' | null>(() => {
   return null
 })
 const activeRiskBanner = computed(() => errorBanner.value || warningBanner.value || '')
-
-const readPixelValue = (value: string): number => {
-  const parsed = Number.parseFloat(value)
-  return Number.isFinite(parsed) ? parsed : 0
-}
-
-const updatePreviewTableHeight = () => {
-  const body = dialogBodyRef.value
-  const tableWrap = previewTableWrapRef.value
-  if (!body || !tableWrap || !preview.value) return
-
-  const bodyStyle = window.getComputedStyle(body)
-  const tableWrapChromeHeight = Math.max(0, tableWrap.offsetHeight - tableWrap.clientHeight)
-  const reservedHeight = readPixelValue(bodyStyle.paddingBottom) + tableWrapChromeHeight
-  const availableHeight = Math.floor(
-    body.getBoundingClientRect().bottom - tableWrap.getBoundingClientRect().top - reservedHeight,
-  )
-
-  previewTableHeight.value = Math.max(1, Math.min(PREVIEW_TABLE_MAX_HEIGHT, availableHeight))
-}
-
-const syncPreviewLayout = async () => {
-  await nextTick()
-  previewLayoutObserver?.disconnect()
-
-  const body = dialogBodyRef.value
-  if (!innerVisible.value || !preview.value || !body) {
-    previewTableHeight.value = PREVIEW_TABLE_MAX_HEIGHT
-    return
-  }
-
-  updatePreviewTableHeight()
-  if (typeof ResizeObserver !== 'undefined') {
-    previewLayoutObserver = new ResizeObserver(updatePreviewTableHeight)
-    previewLayoutObserver.observe(body)
-  }
-}
-
-watch([innerVisible, preview, activeRiskBanner], () => void syncPreviewLayout(), { flush: 'post' })
-
-onBeforeUnmount(() => {
-  previewLayoutObserver?.disconnect()
-})
 
 const formatFileSize = (value: number): string => {
   if (!Number.isFinite(value) || value <= 0) return '0 B'
